@@ -68,7 +68,7 @@ def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str], per
         f"cerca de {num(B['dias_com_complemento_por_ano'])} dias/ano precisam de complemento elétrico; "
         f"entre os anos de 2016-2025 o chuveiro com solar variou de {num(B['chuveiro_kwh_ano_min'], 1)} a {num(B['chuveiro_kwh_ano_max'], 1)} kWh/ano.",
         "",
-        "## Sensibilidade da alternativa B (premissas incertas)",
+        f"## Sensibilidade da alternativa B (premissas incertas; perfil tarifário escolhido: {d['perfil_tarifario_descricao']})",
     ]
     for s in sensibilidade:
         ret = f"{num(s['retorno_simples_anos'], 1)} anos" if s["retorno_simples_anos"] is not None else "não se paga"
