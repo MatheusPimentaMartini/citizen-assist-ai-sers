@@ -7,7 +7,7 @@ from energia.formatacao import num, pct, reais
 FONTES_RESUMO = (
     "Fontes dos cálculos: ANEEL (tarifa Enel SP 2026) · Open-Meteo e CRESESB (clima e sol) · "
     "INMETRO e Idec (chuveiro e coletor) · SINAPI 103517 (custo do kit) · MCTI 2025 (CO₂) · Sabesp (tempo de banho). "
-    "Detalhes na aba Método."
+    "Detalhes na seção Fontes do app."
 )
 
 FONTES_CURTAS = [
@@ -41,6 +41,8 @@ def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str], per
         f"- Consumo total da conta: {num(c.consumo_conta_kwh)} kWh/mês; perfil tarifário: {d['perfil_tarifario_descricao']}.",
         f"- Chuveiro hoje: {num(d['consumo_chuveiro_atual_kwh_mes'], 1)} kWh/mês "
         f"({pct(d['participacao_chuveiro_na_conta'])} do consumo da casa); conta de energia média {reais(d['conta_atual_mes_medio_rs'])}/mês.",
+        f"- Custo do chuveiro na conta hoje: cerca de {reais(d['custo_chuveiro_mes_medio_rs'])}/mês "
+        f"(diferença entre a conta de energia com o chuveiro e a conta só dos outros aparelhos, {reais(d['conta_sem_chuveiro_mes_rs'])}/mês).",
         f"- ICMS aplicado na conta atual: {pct(d['icms_atual'])} (SP: isento até 90 kWh, 12% até 200 kWh, 18% acima); PIS/COFINS estimado em 6%.",
         f"- Vazão estimada do chuveiro: {num(d['vazao_chuveiro_l_min'], 2)} L/min; água fria no mês mais frio: {num(d['temp_agua_fria_minima_c'], 1)} °C.",
         "",

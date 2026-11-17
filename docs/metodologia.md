@@ -40,6 +40,7 @@ Notação: P = potência do chuveiro (W), η = eficiência do chuveiro (0,95), t
    - ICMS-SP pela faixa de consumo **total** do mês: isento até 90 kWh, 12% até 200 kWh, 18% acima. Por isso a economia é `conta(consumo atual) − conta(consumo com a alternativa)`, e não kWh × preço fixo: quando o consumo cai abaixo de 200 kWh a alíquota de todo o mês muda.
    - PIS/COFINS efetivo de 6,0%: estimado pelo grupo a partir de faturas públicas da Enel SP de 2026 (`tarifa_unitária = preço_com_tributos × (1 − PIS/COFINS) × (1 − ICMS)`): cinco faturas deram entre 6,0% e 6,05% e uma deu 4,3%, o que mostra que o valor muda de mês para mês.
    - O "consumo total" é informado pelo usuário (vem da conta); a parte que não é chuveiro é mantida constante.
+   - **Custo do chuveiro na conta** (mostrado no resumo do app) = conta com o consumo atual − conta só dos outros aparelhos, com a mesma tarifa e os mesmos tributos. Nenhuma alternativa pode economizar mais do que esse valor (testado).
 9. **Retorno simples** = investimento ÷ economia anual (sem juros, inflação, reajustes ou manutenção).
 10. **CO₂** = kWh do mês × fator médio mensal do SIN de 2025 (MCTI). **Água** = vazão × minutos de banho.
 
@@ -95,4 +96,4 @@ No pessimista, o sol cobre cerca de 59% e o retorno passa de ~3 para ~4,7 anos; 
 7. Retorno simples, sem juros, inflação e manutenção.
 8. Fator de emissão médio (inventário). Para emissões **evitadas** na margem, o MCTI publica o fator de margem de operação, que tende a ser maior; não foi usado.
 9. Consumo total da casa é informado pelo usuário; o padrão de 200 kWh/mês é apenas um exemplo.
-10. A IA generativa pode reescrever um número correto com o sentido errado (ex.: trocar consumo por economia). O verificador só confere se o número existe nos cálculos; por isso a ficha usa rótulos explícitos e a tabela da aba Comparação é sempre a referência.
+10. A IA generativa pode reescrever um número correto com o sentido errado (ex.: trocar consumo por economia). O verificador só confere se o número existe nos cálculos; por isso a ficha usa rótulos explícitos e os cartões e a tabela da seção Simular são sempre a referência.

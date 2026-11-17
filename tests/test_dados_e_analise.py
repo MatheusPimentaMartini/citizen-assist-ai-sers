@@ -56,3 +56,24 @@ def test_sensibilidade_pessimista_reduz_cobertura(base):
     s = {x["id"]: x for x in sensibilidade_solar(Cenario(), base)}
     assert s["pessimista"]["fracao_solar_ano"] < s["coletor_minimo"]["fracao_solar_ano"] <= s["base"]["fracao_solar_ano"]
     assert s["vazao_maior"]["agua_m3_ano"] > s["base"]["agua_m3_ano"]
+
+
+def test_custo_do_chuveiro_na_conta(base):
+    from energia.tarifa import valor_conta
+
+    for perfil in ("convencional", "tarifa_social"):
+        res = analisar(Cenario(perfil_tarifario=perfil), base)
+        d, alts = res.derivados, res.alternativas
+        sem_chuveiro = valor_conta(d["consumo_outros_aparelhos_kwh_mes"], perfil, base.tarifa)
+        assert d["custo_chuveiro_mes_medio_rs"] == pytest.approx(d["conta_atual_mes_medio_rs"] - sem_chuveiro, abs=0.02)
+        # nenhuma alternativa pode economizar mais do que o chuveiro custa
+        for k in ("A", "B"):
+            assert 0 < alts[k]["economia_mes_medio_rs"] <= d["custo_chuveiro_mes_medio_rs"] + 0.01
+
+
+def test_porcentagem_nao_esconde_o_que_sobra():
+    from energia.formatacao import pct_sem_100
+
+    assert pct_sem_100(0.999) == "99,9%"
+    assert pct_sem_100(0.47) == "47%"
+    assert pct_sem_100(1.0) == "100%"

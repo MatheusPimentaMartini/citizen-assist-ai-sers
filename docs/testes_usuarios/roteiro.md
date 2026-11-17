@@ -17,6 +17,8 @@
 
 ## Roteiro (10 a 15 minutos)
 
+Vale para a interface versão 2 (17/11/2026): seções **Simular**, **Assistente** e **Fontes** no topo da tela.
+
 **Antes de começar (fale assim):** "Estamos testando o aplicativo, não você. Não existe resposta errada. Vou pedir algumas tarefas; tente fazer sozinho(a) e vá falando em voz alta o que está pensando. Durante as tarefas eu não posso ajudar, porque quero ver se o app se explica sozinho. No final você pode perguntar tudo. Não vou anotar seu nome nem dados da sua conta."
 
 **Durante:** a pessoa usa o próprio celular ou computador. Você observa e anota. Se ela perguntar algo, devolva: "O que você faria se eu não estivesse aqui?". Se travar por cerca de 2 minutos ou desistir, marque a tarefa, anote onde travou e dê a menor dica possível só para seguir para a próxima (anote que houve dica).
@@ -24,10 +26,10 @@
 | # | Peça assim (sem dar a resposta) | **Sim** | **Parcial** | **Não** |
 | --- | --- | --- | --- | --- |
 | 1 | "Olhando esta tela, para quem é este aplicativo e o que ele faz?" | Fala de famílias/casas com chuveiro elétrico e de economizar energia no banho | Resposta vaga ("é sobre energia") | Não sabe ou responde algo errado |
-| 2 | "Coloque as informações da sua casa e me diga quanto o chuveiro gasta por mês." | Abre "Sua casa" (no celular, pelo **»**), ajusta os dados e lê "Chuveiro hoje" (kWh/mês) | Lê o número sem ajustar os dados, precisou de dica, ou confunde com a conta inteira | Não encontra |
+| 2 | "Coloque as informações da sua casa e me diga quanto o chuveiro gasta por mês." | Responde às perguntas, toca em **Calcular minha economia** e lê o resumo "Hoje o chuveiro gasta cerca de... kWh por mês" (ou o valor em R$) | Lê o número sem ajustar os dados, precisou de dica, ou confunde com a conta inteira | Não encontra |
 | 3 | "Qual opção economiza mais? E qual não custa nada?" | Solar (B) economiza mais **e** práticas (A) não custam nada | Acerta só uma | Não acerta nenhuma |
 | 4 | "Pergunte ao assistente: 'O aquecedor solar vale a pena para mim?'. Depois faça uma pergunta sua." | Faz as duas perguntas e explica a resposta com as próprias palavras (inclui que é estimativa) | Faz só uma, ou não entende a resposta | Não encontra o assistente ou não pergunta |
-| 5 | "Se quisesse saber de onde vêm esses números, onde procuraria? Me mostre." | Abre a aba Método e aponta pelo menos uma fonte (ex.: tarifa da ANEEL) | Só encontra com dica, ou só pela legenda de fontes do chat | Não encontra |
+| 5 | "Se quisesse saber de onde vêm esses números, onde procuraria? Me mostre." | Abre **Fontes** (no topo ou pelo botão "Ver de onde vêm os números") e aponta pelo menos uma fonte (ex.: tarifa da ANEEL) | Só encontra com dica, ou só pela legenda de fontes do chat | Não encontra |
 
 **Perguntas finais** (a própria pessoa dá a nota, de 1 = discordo totalmente a 5 = concordo totalmente):
 clareza ("Entendi os resultados"), utilidade ("Isso me ajudaria a decidir algo em casa"), confiança ("Confio nos números, sabendo que são estimativas"), facilidade ("Foi fácil usar"). Depois: "O que você mudaria?" e "O que mais gostou?".

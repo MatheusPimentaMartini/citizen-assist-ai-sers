@@ -1,0 +1,76 @@
+/* Ajustes visuais do app (carregados por app.py com st.html).
+   O tema (cores, fonte, cantos) fica em .streamlit/config.toml; aqui só o que o tema não cobre. */
+
+/* Coluna de leitura confortável no computador; no celular o Streamlit já usa a tela toda.
+   O espaço extra embaixo evita que o campo do chat cubra o último conteúdo. */
+[data-testid="stMainBlockContainer"] {
+  max-width: 52rem;
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Título menor no celular. */
+h1 {
+  font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+  padding-top: 0 !important;
+}
+
+/* Legendas com contraste AA (7,6:1). Por padrão o Streamlit usa um cinza mais claro. */
+[data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] p,
+[data-testid="stWidgetLabel"] + div [data-testid="stCaptionContainer"] {
+  color: #4B5563 !important;
+}
+
+/* Alvos de toque de pelo menos 48 px (recomendação de acessibilidade para celular). */
+button[data-testid^="stBaseButton-primary"],
+button[data-testid^="stBaseButton-secondary"],
+button[data-testid^="stBaseButton-tertiary"] {
+  min-height: 3rem;
+  font-weight: 600;
+}
+[data-testid="stButtonGroup"] button {
+  min-height: 2.9rem;
+}
+
+/* Rótulos das perguntas do formulário em destaque. */
+[data-testid="stForm"] [data-testid="stWidgetLabel"] p {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Cartões. As cores do texto são fixas para continuar legíveis mesmo se o tema mudar. */
+.st-key-hero {
+  background: #EAF5EE;
+  border-color: #B9DCC6 !important;
+  color: #1F2933;
+}
+.st-key-destaque {
+  background: #F2F5F3;
+  border-color: #D5DDD8 !important;
+  color: #1F2933;
+}
+.st-key-card_L0,
+.st-key-card_A,
+.st-key-card_B {
+  border-color: #D5DDD8 !important;
+}
+.st-key-card_A {
+  border-top: 5px solid #17703F !important;
+}
+.st-key-card_B {
+  border-top: 5px solid #C27C0E !important;
+}
+.st-key-card_L0 {
+  border-top: 5px solid #7B8794 !important;
+}
+
+/* O Streamlit deixa as legendas com 60% de opacidade; voltamos a 100% para manter o contraste. */
+[data-testid="stCaptionContainer"] {
+  opacity: 1 !important;
+}
+
+/* Esconde o ícone de link ao lado dos títulos (no celular ele fica sempre visível e polui a tela). */
+[data-testid="stHeaderActionElements"] {
+  display: none !important;
+}

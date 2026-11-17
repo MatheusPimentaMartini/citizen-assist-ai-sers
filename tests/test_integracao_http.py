@@ -48,8 +48,10 @@ def test_app_usa_ia_quando_configurada(monkeypatch, servidor):
     monkeypatch.setenv("OLLAMA_HOST", servidor)
     monkeypatch.setenv("OLLAMA_MODEL", "modelo-teste")
     at = AppTest.from_file(str(APP), default_timeout=60).run()
+    at.button(key="calcular").click().run()
+    at.button(key="ir_assistente").click().run()
     assert any("IA generativa ativa" in s.value for s in at.success)
-    at.chat_input[0].set_value("O aquecedor solar vale a pena?").run()
+    at.chat_input(key="chat").set_value("O aquecedor solar vale a pena?").run()
     assert not at.exception
     assert RECEBIDO["path"] == "/api/chat" and RECEBIDO["corpo"]["model"] == "modelo-teste"
     assert RECEBIDO["corpo"]["stream"] is False

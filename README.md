@@ -25,15 +25,21 @@ Global Solution 2026.2 — **Soluções em Energias Renováveis e Sustentáveis 
 
 ## Funcionalidades de energia
 
-1. **Simulador** (aba Comparação): a pessoa informa moradores, minutos de banho, potência do chuveiro, consumo da conta e perfil tarifário. O app calcula, mês a mês, consumo (kWh), conta de energia (R$), economia, investimento, retorno simples, CO₂ e água para três alternativas:
+1. **Simulador** (seção Simular): a pessoa responde 5 perguntas sobre a casa (moradores, minutos de banho, potência do chuveiro, consumo da conta e desconto social) e toca em **Calcular minha economia**. O app calcula, mês a mês, consumo (kWh), conta de energia (R$), economia, investimento, retorno simples, CO₂ e água para três alternativas:
    - **L0** chuveiro elétrico convencional (situação atual);
    - **A** chuveiro com práticas de uso eficiente (banho de 5 min e posição "verão" quando a água chega morna) — **sem investimento**;
    - **B** aquecimento solar térmico (fonte **renovável**) com o chuveiro como complemento.
 2. **Sensibilidade do solar** com premissas incertas (coletor de menor desempenho aceito pelo INMETRO; ducha de maior vazão).
-3. **Assistente Citizen Assist AI** (aba Assistente):
+3. **Assistente Citizen Assist AI** (seção Assistente), com perguntas sugeridas:
    - **IA generativa (Ollama Cloud)**: recebe uma *ficha de cálculo* com os números da simulação, fontes e limitações, e só pode usá-los. Um **verificador** confere os números da resposta e avisa se algum não estiver nos cálculos.
    - **Modo cálculo**: se a IA estiver sem chave, fora do ar ou sem cota, o assistente responde por regras a partir dos mesmos cálculos e se identifica como **"não é IA generativa"**.
-4. **Método, fontes e limitações** (aba própria) com links.
+4. **Método, fontes e limitações** (seção Fontes) com links.
+
+### Interface
+
+Feita primeiro para o celular: apresentação, perguntas e resultado numa mesma página, em linguagem simples, com cartões comparativos e o cenário pessimista ao lado do otimista. Decisões, contraste conferido (WCAG AA) e verificação: [`docs/interface.md`](docs/interface.md).
+
+![Telas no celular: apresentação, resultado, cartões e assistente](docs/img/telas_celular.png)
 
 ## Principais resultados (cenário de referência)
 
@@ -63,7 +69,7 @@ cd citizen-assist-ai-sers
 python -m venv .venv
 # Windows: .venv\Scripts\activate    |    macOS/Linux: source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest                         # 55 testes automatizados
+pytest                         # 62 testes automatizados
 streamlit run app.py           # http://localhost:8501 (modo cálculo, sem chave)
 python scripts/gerar_resultados.py   # regenera docs/resultados.md e resultados/*.csv
 ```
@@ -93,17 +99,18 @@ Principais limitações: estimativas (não garantias); conta sem bandeiras e COS
 
 ## Testes
 
-- **Técnicos:** 55 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
+- **Técnicos:** 62 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, caminho completo na interface sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
 - **Com usuários:** roteiro, registros e ajustes em [`docs/testes_usuarios/`](docs/testes_usuarios/).
 
 ## Estrutura
 
 ```
-app.py                  # interface Streamlit (simulador + assistente)
+app.py                  # interface Streamlit (Simular, Assistente, Fontes)
+estilo.css              # ajustes visuais que o tema não cobre (tema em .streamlit/config.toml)
 energia/                # cálculos: modelo diário, tarifa, análise, formatação, leitura dos dados
 assistente/             # ficha de cálculo, cliente Ollama Cloud, modo cálculo, verificador de números
 dados/                  # dados brutos/tratados e parametros.json (com fontes)
-scripts/                # coleta do Open-Meteo e geração dos resultados
+scripts/                # coleta do Open-Meteo, geração dos resultados e capturas de tela
 resultados/             # tabelas CSV geradas pelo código
 docs/                   # metodologia, resultados, referências, deploy, testes
 tests/                  # pytest

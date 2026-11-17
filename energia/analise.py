@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass, field
 import pandas as pd
 
 from .dados import BaseDados
-from .formatacao import num, pct, reais
+from .formatacao import num, pct, pct_sem_100, reais
 from .modelo import (
     Familia, PraticasEficientes, Premissas, SistemaSolar, ano_tipico, simular, totais_por_ano,
 )
@@ -124,6 +124,9 @@ def analisar(cenario: Cenario, base: BaseDados) -> Resultado:
     b["menor_fracao_solar_mensal"] = round(float(mensal["fracao_solar"].min()), 3)
 
     consumo_atual = outros + mensal["e_l0_kwh"]
+    # Quanto o chuveiro pesa na conta: conta com o chuveiro (L0) menos a conta só dos outros aparelhos.
+    # Usa a mesma tarifa e os mesmos tributos; por isso já considera a mudança de faixa do ICMS.
+    conta_sem_chuveiro = valor_conta(outros, perfil, base.tarifa)
     derivados = {
         "vazao_chuveiro_l_min": round(float(sim.attrs["vazao_l_min"]), 2),
         "temp_agua_fria_minima_c": round(float(sim.attrs["temp_agua_fria_minima_c"]), 1),
@@ -131,6 +134,8 @@ def analisar(cenario: Cenario, base: BaseDados) -> Resultado:
         "consumo_chuveiro_atual_kwh_mes": round(e_l0_mes, 1),
         "participacao_chuveiro_na_conta": round(e_l0_mes / max(cenario.consumo_conta_kwh, 1e-9), 3),
         "conta_atual_mes_medio_rs": round(conta_l0_ano / 12, 2),
+        "conta_sem_chuveiro_mes_rs": round(conta_sem_chuveiro, 2),
+        "custo_chuveiro_mes_medio_rs": round(conta_l0_ano / 12 - conta_sem_chuveiro, 2),
         "icms_atual": aliquota_icms(float(consumo_atual.mean()), base.tarifa),
         "periodo_clima": f"{int(sim['ano'].min())}-{int(sim['ano'].max())}",
         "ano_fator_emissao": 2025,
@@ -153,7 +158,7 @@ def recomendacoes(res: Resultado, sensibilidade: list[dict] | None = None) -> li
     ]
     if b["retorno_simples_anos"] is not None:
         texto = (
-            f"O aquecimento solar (B) reduz até {pct(b['reducao_consumo_chuveiro'])} do consumo do chuveiro "
+            f"O aquecimento solar (B) reduz até {pct_sem_100(b['reducao_consumo_chuveiro'])} do consumo do chuveiro "
             f"(economia estimada de {reais(b['economia_ano_rs'])}/ano), mas exige cerca de "
             f"{reais(b['investimento_rs'], 0)}. Retorno simples estimado: {num(b['retorno_simples_anos'], 1)} anos "
             "(sem juros e sem reajustes de tarifa)."

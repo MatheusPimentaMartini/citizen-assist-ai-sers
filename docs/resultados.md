@@ -15,7 +15,7 @@ Família de 4 pessoas, banho de 8 min, chuveiro de 5.500 W, conta de 200 kWh/mê
 **Recomendações geradas pelo código:**
 
 - Comece pelas práticas eficientes (A): custo zero, economia estimada de R$ 574,84 por ano (499 kWh/ano) e 13,7 mil litros de água a menos por ano.
-- O aquecimento solar (B) reduz até 100% do consumo do chuveiro (economia estimada de R$ 1.119,89/ano), mas exige cerca de R$ 3.360. Retorno simples estimado: 3,0 anos (sem juros e sem reajustes de tarifa). No cenário pessimista (coletor de pior desempenho aceito e ducha com o dobro da vazão) a economia cai para R$ 714,93/ano e o retorno vai para 4,7 anos.
+- O aquecimento solar (B) reduz até 99,9% do consumo do chuveiro (economia estimada de R$ 1.119,89/ano), mas exige cerca de R$ 3.360. Retorno simples estimado: 3,0 anos (sem juros e sem reajustes de tarifa). No cenário pessimista (coletor de pior desempenho aceito e ducha com o dobro da vazão) a economia cai para R$ 714,93/ano e o retorno vai para 4,7 anos.
 - O chuveiro solar precisa mais do complemento elétrico em junho (o sol cobre 99% da necessidade nesse mês, em média) e em sequências de dias nublados (cerca de 2 dias por ano).
 - Se optar pelo solar, escolha coletor e reservatório com etiqueta INMETRO e instalação por profissional seguindo a ABNT NBR 15569. As práticas de A continuam valendo junto com o solar.
 

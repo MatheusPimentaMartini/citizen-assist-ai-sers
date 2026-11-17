@@ -70,9 +70,10 @@ def responder(
             texto = conversar(config, montar_mensagens(ficha, pergunta, historico))
             return Resposta(texto, "ia", numeros_nao_conferidos(texto, ficha))
         except ErroIA as e:
-            aviso = f"IA generativa indisponível agora ({e}) Resposta gerada no modo cálculo."
+            aviso = (f"IA generativa indisponível agora; esta resposta foi montada pelo modo cálculo (sem IA). "
+                     f"Detalhe técnico: {e}")
     elif usar_ia:
-        aviso = "IA generativa não configurada neste servidor. Resposta gerada no modo cálculo."
+        aviso = "IA generativa não configurada neste servidor; esta resposta foi montada pelo modo cálculo (sem IA)."
     return Resposta(responder_por_regras(pergunta, res, sensibilidade, recs, perfis), "calculo", aviso=aviso)
 
 

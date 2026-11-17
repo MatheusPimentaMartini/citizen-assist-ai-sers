@@ -6,14 +6,35 @@ Rodar: `pip install -r requirements-dev.txt` e `pytest`.
 | --- | --- |
 | `tests/test_tarifa.py` | Tarifas ANEEL em R$/kWh; faixas de ICMS (0/90/90,5/200/200,1 kWh); degrau de ICMS entre 200 e 201 kWh; gratuidade da Tarifa Social (79/80/81 kWh); faixas do Desconto Social (120/121 kWh); entradas inválidas |
 | `tests/test_modelo.py` | Vazão do chuveiro; energia térmica; L0 = P×t; ajuste de potência nunca passa da nominal; três dias do reservatório calculados à mão; sem sol o chuveiro faz tudo; validação de entradas |
-| `tests/test_dados_e_analise.py` | Série diária completa (3.653 dias); média mensal no plano inclinado = CRESESB; fator de emissão médio de 2025 = MCTI; cenário de referência coerente; aviso quando a conta é menor que o chuveiro; Tarifa Social reduz a economia em R$; sensibilidade pessimista reduz a fração solar |
+| `tests/test_dados_e_analise.py` | Série diária completa (3.653 dias); média mensal no plano inclinado = CRESESB; fator de emissão médio de 2025 = MCTI; cenário de referência coerente; aviso quando a conta é menor que o chuveiro; Tarifa Social reduz a economia em R$; sensibilidade pessimista reduz a fração solar; custo do chuveiro na conta = conta com − conta sem o chuveiro, e nenhuma economia passa desse valor; porcentagem não arredonda 99,9% para 100% |
 | `tests/test_assistente.py` | Detecção de intenções; leitura de números em pt-BR; modo cálculo só usa números da ficha; verificador aponta número inventado; erros 401/402/403/404/429 e timeout viram mensagens; falha da IA cai no modo cálculo sem vazar a chave; resposta da IA é conferida e enviada com a ficha |
-| `tests/test_app.py` | App abre sem chave (modo cálculo), responde no chat e recalcula ao mudar a potência (sem navegador, `streamlit.testing`) |
+| `tests/test_app.py` | Caminho da pessoa na interface, sem navegador (`streamlit.testing`): abre com apresentação e formulário (sem resultado inventado antes de calcular); calcular mostra cartões e selos; mudar a potência recalcula e as respostas continuam guardadas ao trocar de seção; banho "eficiente" mais longo que o de hoje é ajustado com aviso; assistente responde sem chave no modo cálculo; pergunta sugerida vira pergunta; limpar conversa; seção Fontes |
 | `tests/test_integracao_http.py` | Ponta a ponta com um servidor HTTP falso no formato da API do Ollama: o app envia a ficha de cálculo e mostra a resposta como IA generativa |
 
-Resultado na última execução da equipe: **55 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67).
+Resultado na última execução: **62 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67), em 17/11/2026, depois da interface versão 2. A execução anterior da equipe, com a versão 1, teve 55 testes aprovados.
 
-## Checklist manual após publicar (marcar com data)
+## Interface versão 2 (17/11/2026)
+
+Verificação automatizada no ambiente de desenvolvimento, com `scripts/capturar_telas.py` (Chrome sem janela, app local sem chave):
+
+| Tela | Rolagem horizontal | Botões com menos de 44 px | Erros de JavaScript |
+| --- | --- | --- | --- |
+| Celular (390 × 844) | não | nenhum | nenhum |
+| Computador (1280 × 900) | não | nenhum | nenhum |
+
+Na primeira execução o botão "Limpar conversa" tinha menos de 44 px; o `estilo.css` passou a dar 48 px também a esse tipo de botão. Capturas e decisões: [`interface.md`](interface.md).
+
+Checklist manual com a interface nova (cada integrante, no próprio celular):
+
+- [ ] Responder as perguntas, tocar em "Calcular minha economia" e a tela ir sozinha até o resultado.
+- [ ] Trocar de seção (Simular, Assistente, Fontes) e voltar: as respostas continuam lá.
+- [ ] Tocar numa pergunta sugerida e receber resposta com o rótulo "IA generativa".
+- [ ] Desligar "Usar IA generativa" (em "Como o assistente funciona e quais números ele usa") e receber resposta em "Modo cálculo".
+- [ ] Ler tudo sem precisar dar zoom e sem a tela "vazar" para os lados.
+
+## Checklist manual da versão 1 (registro histórico)
+
+Itens marcados pela equipe com a interface versão 1 (abas e barra lateral):
 
 - [x] 17/11/2026 — Link abre sem login; aba Assistente mostra "IA generativa ativa" (Secrets configurado).
 - [x] 17/11/2026 — Com `gpt-oss:120b` a API respondeu HTTP 402; o app mostrou o aviso e respondeu no modo cálculo (fallback funcionou). Ajuste: modelo padrão `gpt-oss:20b` e mensagem específica para 402.

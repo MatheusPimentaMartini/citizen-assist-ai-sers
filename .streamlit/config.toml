@@ -1,5 +1,21 @@
+# Tema visual do app (cores com contraste conferido pelo critério WCAG AA; ver docs/interface.md).
 [theme]
-primaryColor = "#1f7a5c"
+base = "light"
+primaryColor = "#17703F"            # verde: 6,1:1 contra o branco
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F2F5F3" # cinza-claro dos campos e caixas
+textColor = "#1F2933"               # 14,8:1 contra o branco
+linkColor = "#17703F"
+borderColor = "#7B8794"             # bordas dos campos: 3,7:1 (mínimo para componentes é 3:1)
+showWidgetBorder = true
+baseRadius = "0.75rem"
+baseFontSize = 17
+headingFontWeights = [700, 700, 700, 650, 650, 600]
+headingFontSizes = ["2.1rem", "1.6rem", "1.35rem", "1.2rem", "1.05rem", "1rem"]
+chartCategoricalColors = ["#7B8794", "#17703F", "#C27C0E"]
+
+[client]
+toolbarMode = "minimal"
 
 [server]
 headless = true

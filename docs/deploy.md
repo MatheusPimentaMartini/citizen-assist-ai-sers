@@ -33,7 +33,7 @@ O Streamlit Community Cloud foi escolhido porque é gratuito, publica direto do 
    OLLAMA_MODEL = "gpt-oss:20b"
    ```
 5. Clique em **Deploy** e aguarde a instalação (1 a 3 minutos).
-6. Teste numa **janela anônima** do navegador: o aviso verde "IA generativa ativa" deve aparecer na aba Assistente. Faça uma pergunta.
+6. Teste numa **janela anônima** do navegador: o aviso verde "IA generativa ativa" deve aparecer na seção Assistente. Faça uma pergunta.
 7. Envie o link para Leonardo, Lucas e o professor e peça para testarem do computador/celular deles.
 
 ### Criar a chave do Ollama Cloud

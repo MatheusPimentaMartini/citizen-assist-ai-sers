@@ -27,7 +27,7 @@ INTENCOES = {
               "consumo", "icms", "imposto"],
     "mes": ["inverno", "frio", "mes", "julho", "junho", "agosto", "nublad", "chuva"],
     "metodo": ["confiav", "precis", "limita", "premissa", "como calcul", "metodo", "fonte", "referencia",
-               "dados", "garantia", "certeza"],
+               "dados", "garantia", "certeza", "de onde", "numeros"],
     "saudacao": ["oi", "ola", "bom dia", "boa tarde", "boa noite", "ajuda", "o que voce faz"],
 }
 ORDEM = ["tarifa_social", "solar", "ambiente", "economia", "comparar", "conta", "mes", "metodo", "saudacao"]
@@ -102,7 +102,9 @@ def responder_por_regras(
             f"Pelo que você informou, a casa consome {num(res.cenario.consumo_conta_kwh)} kWh/mês e o chuveiro responde por "
             f"cerca de {num(d['consumo_chuveiro_atual_kwh_mes'], 1)} kWh/mês ({pct(d['participacao_chuveiro_na_conta'])}). "
             f"A parcela de energia da conta fica em torno de {reais(d['conta_atual_mes_medio_rs'])}/mês "
-            f"(tarifa ANEEL 2026 da Enel SP + PIS/COFINS + ICMS de {pct(d['icms_atual'])}).\n\n"
+            f"(tarifa ANEEL 2026 da Enel SP + PIS/COFINS + ICMS de {pct(d['icms_atual'])}); "
+            f"desse valor, cerca de {reais(d['custo_chuveiro_mes_medio_rs'])}/mês vêm do chuveiro "
+            "(diferença entre a conta com e sem o consumo dele).\n\n"
             f"- Com práticas eficientes (A): {reais(A['conta_energia_mes_medio_rs'])}/mês.\n"
             f"- Com aquecimento solar (B): {reais(B['conta_energia_mes_medio_rs'])}/mês.\n\n"
             "Não incluímos bandeiras tarifárias nem iluminação pública."
