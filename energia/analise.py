@@ -162,7 +162,7 @@ def recomendacoes(res: Resultado, sensibilidade: list[dict] | None = None) -> li
         if pess:
             p = pess[0]
             ret = f"{num(p['retorno_simples_anos'], 1)} anos" if p["retorno_simples_anos"] else "não se paga"
-            texto += (f" No cenário pessimista (coletor de menor desempenho e ducha de maior vazão) a economia cai para "
+            texto += (f" No cenário pessimista (coletor de pior desempenho aceito e ducha com o dobro da vazão) a economia cai para "
                       f"{reais(p['economia_ano_rs'])}/ano e o retorno vai para {ret}.")
         recs.append(texto)
     else:
@@ -193,7 +193,7 @@ SENSIBILIDADES_SOLAR = [
     },
     {
         "id": "coletor_minimo",
-        "rotulo": "Coletor com o menor desempenho aceito pelo INMETRO (PMEe 52,3 kWh/mês·m²)",
+        "rotulo": "Coletor com o pior desempenho aceito pelo INMETRO (PMEe 52,3 kWh/mês·m²)",
         "ajustes": {"pmee_kwh_mes_m2": 52.3},
         "fonte": "INMETRO, Portaria 301/2012 (limite inferior da classe E).",
     },
@@ -205,7 +205,7 @@ SENSIBILIDADES_SOLAR = [
     },
     {
         "id": "pessimista",
-        "rotulo": "Combinação pessimista: coletor mínimo + ducha de maior vazão",
+        "rotulo": "Combinação pessimista: coletor de pior desempenho aceito + ducha com o dobro da vazão",
         "ajustes": {"pmee_kwh_mes_m2": 52.3, "fator_uso_agua_quente": 8.4 / 4.2},
         "fonte": "Combinação dos dois casos acima.",
     },

@@ -4,6 +4,12 @@ from __future__ import annotations
 from energia.analise import MESES_NOME, Resultado
 from energia.formatacao import num, pct, reais
 
+FONTES_RESUMO = (
+    "Fontes dos cálculos: ANEEL (tarifa Enel SP 2026) · Open-Meteo e CRESESB (clima e sol) · "
+    "INMETRO e Idec (chuveiro e coletor) · SINAPI 103517 (custo do kit) · MCTI 2025 (CO₂) · Sabesp (tempo de banho). "
+    "Detalhes na aba Método."
+)
+
 FONTES_CURTAS = [
     "Clima: Open-Meteo (irradiação diária e temperatura, 2016-2025) e CRESESB/Atlas Brasileiro de Energia Solar 2017 (irradiação no plano inclinado a 34°).",
     "Tarifa: ANEEL, REH 3.596/2026 da Enel SP (vigência 04/07/2026 a 03/07/2027) + ICMS-SP e PIS/COFINS estimado.",
@@ -41,19 +47,19 @@ def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str]) -> 
         "## Comparação (ano típico)",
     ]
     for chave, alt in (("L0", L0), ("A", A), ("B", B)):
-        retorno = (
-            f"retorno simples {num(alt['retorno_simples_anos'], 1)} anos"
-            if alt["retorno_simples_anos"] is not None
-            else ("sem investimento" if alt["investimento_rs"] == 0 else "não se paga")
-        )
-        linhas.append(
-            f"- {chave} ({alt['nome']}): chuveiro {num(alt['chuveiro_kwh_ano'])} kWh/ano "
-            f"({num(alt['chuveiro_kwh_mes_medio'], 1)} kWh/mês); conta de energia {reais(alt['conta_energia_mes_medio_rs'])}/mês; "
-            f"economia {reais(alt['economia_ano_rs'])}/ano ({reais(alt['economia_mes_medio_rs'])}/mês; "
-            f"{num(alt['economia_kwh_ano'])} kWh/ano; {pct(alt['reducao_consumo_chuveiro'])} do chuveiro); "
-            f"investimento {reais(alt['investimento_rs'])}; {retorno}; "
-            f"CO2 {num(alt['co2_kg_ano'], 1)} kg/ano; água {num(alt['agua_m3_ano'], 1)} m³/ano."
-        )
+        if alt["retorno_simples_anos"] is not None:
+            retorno = f"{num(alt['retorno_simples_anos'], 1)} anos (retorno simples)"
+        else:
+            retorno = "sem investimento" if alt["investimento_rs"] == 0 else "não se paga"
+        linhas += [
+            f"### {chave} · {alt['nome']}",
+            f"- consumo do chuveiro: {num(alt['chuveiro_kwh_ano'])} kWh/ano ({num(alt['chuveiro_kwh_mes_medio'], 1)} kWh/mês)",
+            f"- conta de energia da casa: {reais(alt['conta_energia_mes_medio_rs'])}/mês",
+            f"- energia economizada em relação a L0: {num(alt['economia_kwh_ano'])} kWh/ano ({pct(alt['reducao_consumo_chuveiro'])} do consumo do chuveiro)",
+            f"- economia na conta em relação a L0: {reais(alt['economia_ano_rs'])}/ano ({reais(alt['economia_mes_medio_rs'])}/mês)",
+            f"- investimento: {reais(alt['investimento_rs'])}; retorno: {retorno}",
+            f"- CO2 do chuveiro: {num(alt['co2_kg_ano'], 1)} kg/ano; água do banho: {num(alt['agua_m3_ano'], 1)} m³/ano",
+        ]
     linhas += [
         f"- Na alternativa A o banho cai para {num(c.praticas.minutos_banho)} min"
         + (" e a potência é ajustada ao clima (posição verão nos meses quentes)." if c.praticas.ajustar_potencia_no_calor else "."),

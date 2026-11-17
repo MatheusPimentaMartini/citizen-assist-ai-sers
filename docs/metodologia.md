@@ -95,3 +95,4 @@ No pessimista, o sol cobre cerca de 59% e o retorno passa de ~3 para ~4,7 anos; 
 7. Retorno simples, sem juros, inflação e manutenção.
 8. Fator de emissão médio (inventário). Para emissões **evitadas** na margem, o MCTI publica o fator de margem de operação, que tende a ser maior; não foi usado.
 9. Consumo total da casa é informado pelo usuário; o padrão de 200 kWh/mês é apenas um exemplo.
+10. A IA generativa pode reescrever um número correto com o sentido errado (ex.: trocar consumo por economia). O verificador só confere se o número existe nos cálculos; por isso a ficha usa rótulos explícitos e a tabela da aba Comparação é sempre a referência.

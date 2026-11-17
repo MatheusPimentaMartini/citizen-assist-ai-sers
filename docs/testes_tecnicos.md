@@ -19,6 +19,7 @@ Resultado na última execução da equipe: **54 testes aprovados** (Python 3.13,
 - [x] 17/11/2026 — Com `gpt-oss:120b` a API respondeu HTTP 402; o app mostrou o aviso e respondeu no modo cálculo (fallback funcionou). Ajuste: modelo padrão `gpt-oss:20b` e mensagem específica para 402.
 - [x] 17/11/2026 — Com `gpt-oss:20b` também HTTP 402; com o detalhe do serviço exibido, a causa ficou clara ("Add usage credits or subscribe"): a conta não tinha créditos. A equipe comprou US$ 5 de créditos e trocou a chave no Secrets.
 - [x] 17/11/2026 — IA generativa respondeu com os números da ficha. O verificador acusou falso alarme porque a IA escreveu milhares com espaço ("R$ 3 359,57"). Ajustes: verificador aceita espaço como separador de milhar; instruções pedem números no formato da ficha, cenário pessimista ao falar do solar e linhas finais "Limitações:" e "Fontes:".
+- [x] 17/11/2026 — Segunda resposta da IA: sem alertas do verificador, com cenário pessimista e linhas de limitações/fontes, mas chamou de "economia" o consumo restante do solar e citou "ficha de cálculo" como fonte. Ajustes: ficha com rótulos explícitos por alternativa e legenda fixa de fontes no app.
 - [ ] Link abre em janela anônima, sem login.
 - [ ] Aba Assistente mostra "IA generativa ativa" e responde em menos de ~30 s.
 - [ ] Desligar o seletor "Usar IA generativa" → resposta aparece como "Modo cálculo".

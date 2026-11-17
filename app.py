@@ -12,7 +12,7 @@ import pandas as pd
 import streamlit as st
 
 from assistente import ConfigIA, responder
-from assistente.contexto import FONTES_CURTAS, LIMITACOES, montar_ficha
+from assistente.contexto import FONTES_CURTAS, FONTES_RESUMO, LIMITACOES, montar_ficha
 from assistente.modo_calculo import normalizar
 from energia import (
     BaseDados, Cenario, Familia, PraticasEficientes, Premissas, SistemaSolar, analisar, recomendacoes,
@@ -223,6 +223,7 @@ with aba_chat:
             st.markdown(m["content"])
             if m.get("rotulo"):
                 st.caption(m["rotulo"])
+                st.caption(FONTES_RESUMO)
             if m.get("nao_conferidos"):
                 st.warning("Confira na aba Comparação: estes números não aparecem nos cálculos: " + ", ".join(m["nao_conferidos"]))
             if m.get("aviso"):
@@ -255,6 +256,7 @@ with aba_chat:
                       if resposta.modo == "ia" else "🧮 Modo cálculo: regras + cálculos (não é IA generativa).")
             st.markdown(resposta.texto)
             st.caption(rotulo)
+            st.caption(FONTES_RESUMO)
             if resposta.numeros_nao_conferidos:
                 st.warning("Confira na aba Comparação: estes números não aparecem nos cálculos: "
                            + ", ".join(resposta.numeros_nao_conferidos))

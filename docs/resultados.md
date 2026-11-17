@@ -15,7 +15,7 @@ Família de 4 pessoas, banho de 8 min, chuveiro de 5.500 W, conta de 200 kWh/mê
 **Recomendações geradas pelo código:**
 
 - Comece pelas práticas eficientes (A): custo zero, economia estimada de R$ 574,84 por ano (499 kWh/ano) e 13,7 mil litros de água a menos por ano.
-- O aquecimento solar (B) reduz até 100% do consumo do chuveiro (economia estimada de R$ 1.119,89/ano), mas exige cerca de R$ 3.360. Retorno simples estimado: 3,0 anos (sem juros e sem reajustes de tarifa). No cenário pessimista (coletor de menor desempenho e ducha de maior vazão) a economia cai para R$ 714,93/ano e o retorno vai para 4,7 anos.
+- O aquecimento solar (B) reduz até 100% do consumo do chuveiro (economia estimada de R$ 1.119,89/ano), mas exige cerca de R$ 3.360. Retorno simples estimado: 3,0 anos (sem juros e sem reajustes de tarifa). No cenário pessimista (coletor de pior desempenho aceito e ducha com o dobro da vazão) a economia cai para R$ 714,93/ano e o retorno vai para 4,7 anos.
 - O chuveiro solar precisa mais do complemento elétrico em junho (o sol cobre 99% da necessidade nesse mês, em média) e em sequências de dias nublados (cerca de 2 dias por ano).
 - Se optar pelo solar, escolha coletor e reservatório com etiqueta INMETRO e instalação por profissional seguindo a ABNT NBR 15569. As práticas de A continuam valendo junto com o solar.
 
@@ -43,9 +43,9 @@ O cenário de referência é um **limite superior** (coletor classe A, mesma vaz
 | Cenário | Sol cobre | Dias com complemento/ano | Economia (R$/ano) | Retorno simples | Água (m³/ano) | Fonte da variação |
 | --- | --- | --- | --- | --- | --- | --- |
 | Referência: coletor classe A (Komeco KOCS AP 2M) e mesma vazão do chuveiro elétrico | 99,9% | 2 | R$ 1.119,89 | 3,0 anos | 36,6 | Parâmetros de referência (dados/parametros.json). |
-| Coletor com o menor desempenho aceito pelo INMETRO (PMEe 52,3 kWh/mês·m²) | 95,6% | 52 | R$ 1.079,86 | 3,1 anos | 36,6 | INMETRO, Portaria 301/2012 (limite inferior da classe E). |
+| Coletor com o pior desempenho aceito pelo INMETRO (PMEe 52,3 kWh/mês·m²) | 95,6% | 52 | R$ 1.079,86 | 3,1 anos | 36,6 | INMETRO, Portaria 301/2012 (limite inferior da classe E). |
 | Família passa a usar ducha de maior vazão com o solar (o dobro da água quente) | 91,0% | 112 | R$ 1.034,67 | 3,2 anos | 73,2 | Estudo da USP citado pela ABINEE e pelo Idec: chuveiro elétrico 4,2 L/min; aquecedor solar 8,4 L/min. |
-| Combinação pessimista: coletor mínimo + ducha de maior vazão | 59,3% | 359 | R$ 714,93 | 4,7 anos | 73,2 | Combinação dos dois casos acima. |
+| Combinação pessimista: coletor de pior desempenho aceito + ducha com o dobro da vazão | 59,3% | 359 | R$ 714,93 | 4,7 anos | 73,2 | Combinação dos dois casos acima. |
 
 ## 4. Efeito da tarifa e do consumo total da casa (mesma família)
 
