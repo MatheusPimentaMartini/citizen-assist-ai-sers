@@ -30,7 +30,7 @@ LIMITACOES = [
 ]
 
 
-def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str]) -> str:
+def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str], perfis: list[dict] | None = None) -> str:
     c = res.cenario
     d = res.derivados
     L0, A, B = (res.alternativas[k] for k in ("L0", "A", "B"))
@@ -76,6 +76,18 @@ def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str]) -> 
             f"- {s['rotulo']}: sol cobre {pct(s['fracao_solar_ano'], 1)}; economia {reais(s['economia_ano_rs'])}/ano; "
             f"retorno {ret}; água {num(s['agua_m3_ano'], 1)} m³/ano. Fonte: {s['fonte']}"
         )
+    if perfis:
+        linhas += ["", "## Mesma família em outros perfis tarifários (mesmo consumo da conta)",
+                   "- Regras (Lei 15.235/2025): Tarifa Social = CadÚnico com renda por pessoa de até 1/2 salário mínimo, "
+                   "primeiros 80 kWh/mês gratuitos; Desconto Social = renda por pessoa entre 1/2 e 1 salário mínimo, "
+                   "até 120 kWh/mês com tarifa reduzida (sem CDE)."]
+        for pf in perfis:
+            ret = f"{num(pf['retorno_b_anos'], 1)} anos" if pf["retorno_b_anos"] is not None else "não se paga"
+            linhas.append(
+                f"- {pf['descricao']}: conta de energia hoje {reais(pf['conta_atual_mes_rs'])}/mês; "
+                f"economia na conta com A {reais(pf['economia_a_ano_rs'])}/ano; com B {reais(pf['economia_b_ano_rs'])}/ano; "
+                f"retorno de B {ret}."
+            )
     linhas += ["", "## Mês a mês (kWh do chuveiro, ano típico)"]
     for i in res.mensal.index:
         m = res.mensal.loc[i]

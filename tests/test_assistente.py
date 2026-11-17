@@ -133,3 +133,18 @@ def test_resposta_real_da_ia_nao_gera_falso_alarme(caso):
                 "Água: 36,6 m³/ano. Práticas eficientes: R$ 574,84/ano (499 kWh/ano) e 13,7 mil L. "
                 "O solar cobre 99,9 % da energia do banho.")
     assert numeros_nao_conferidos(resposta, ficha) == []
+
+
+
+def test_ficha_traz_numeros_da_tarifa_social(caso):
+    from energia import BaseDados, Cenario
+    from energia.analise import comparar_perfis
+
+    res, sens, recs = caso
+    perfis = comparar_perfis(Cenario(), BaseDados.carregar())
+    ficha = montar_ficha(res, sens, recs, perfis)
+    assert "Tarifa Social" in ficha and "80 kWh" in ficha
+    social = [p for p in perfis if p["perfil"] == "tarifa_social"][0]
+    assert social["economia_b_ano_rs"] < [p for p in perfis if p["perfil"] == "convencional"][0]["economia_b_ano_rs"]
+    r = responder("e a tarifa social?", res, sens, recs, ConfigIA(api_key=None), perfis=perfis)
+    assert r.modo == "calculo" and numeros_nao_conferidos(r.texto, ficha) == []

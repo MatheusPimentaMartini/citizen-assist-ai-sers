@@ -57,7 +57,9 @@ def _linha_alt(alt: dict) -> str:
             f"economia de {reais(alt['economia_ano_rs'])}/ano{inv}{ret}.")
 
 
-def responder_por_regras(pergunta: str, res: Resultado, sensibilidade: list[dict], recs: list[str]) -> str:
+def responder_por_regras(
+    pergunta: str, res: Resultado, sensibilidade: list[dict], recs: list[str], perfis: list[dict] | None = None
+) -> str:
     L0, A, B = (res.alternativas[k] for k in ("L0", "A", "B"))
     d = res.derivados
     intencao = detectar_intencao(pergunta)
@@ -106,7 +108,14 @@ def responder_por_regras(pergunta: str, res: Resultado, sensibilidade: list[dict
             "Não incluímos bandeiras tarifárias nem iluminação pública."
         )
     elif intencao == "tarifa_social":
-        if res.cenario.perfil_tarifario == "tarifa_social":
+        social = [p for p in (perfis or []) if p["perfil"] == "tarifa_social"]
+        if social:
+            p = social[0]
+            ret = f"~{num(p['retorno_b_anos'], 1)} anos" if p["retorno_b_anos"] is not None else "não se paga"
+            extra = (f"Para a sua família com Tarifa Social e o mesmo consumo: conta de energia de {reais(p['conta_atual_mes_rs'])}/mês, "
+                     f"economia de {reais(p['economia_a_ano_rs'])}/ano com as práticas (A) e {reais(p['economia_b_ano_rs'])}/ano "
+                     f"com o solar (B), que se pagaria em {ret}.")
+        elif res.cenario.perfil_tarifario == "tarifa_social":
             extra = (f"Na sua simulação (Tarifa Social), a economia com o solar é de {reais(B['economia_ano_rs'])}/ano "
                      f"e o retorno é de ~{num(B['retorno_simples_anos'] or 0, 1)} anos.")
         else:

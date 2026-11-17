@@ -11,7 +11,7 @@ Rodar: `pip install -r requirements-dev.txt` e `pytest`.
 | `tests/test_app.py` | App abre sem chave (modo cálculo), responde no chat e recalcula ao mudar a potência (sem navegador, `streamlit.testing`) |
 | `tests/test_integracao_http.py` | Ponta a ponta com um servidor HTTP falso no formato da API do Ollama: o app envia a ficha de cálculo e mostra a resposta como IA generativa |
 
-Resultado na última execução da equipe: **54 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67).
+Resultado na última execução da equipe: **55 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67).
 
 ## Checklist manual após publicar (marcar com data)
 
@@ -20,6 +20,7 @@ Resultado na última execução da equipe: **54 testes aprovados** (Python 3.13,
 - [x] 17/11/2026 — Com `gpt-oss:20b` também HTTP 402; com o detalhe do serviço exibido, a causa ficou clara ("Add usage credits or subscribe"): a conta não tinha créditos. A equipe comprou US$ 5 de créditos e trocou a chave no Secrets.
 - [x] 17/11/2026 — IA generativa respondeu com os números da ficha. O verificador acusou falso alarme porque a IA escreveu milhares com espaço ("R$ 3 359,57"). Ajustes: verificador aceita espaço como separador de milhar; instruções pedem números no formato da ficha, cenário pessimista ao falar do solar e linhas finais "Limitações:" e "Fontes:".
 - [x] 17/11/2026 — Segunda resposta da IA: sem alertas do verificador, com cenário pessimista e linhas de limitações/fontes, mas chamou de "economia" o consumo restante do solar e citou "ficha de cálculo" como fonte. Ajustes: ficha com rótulos explícitos por alternativa e legenda fixa de fontes no app.
+- [x] 17/11/2026 — Pergunta sobre Tarifa Social: a IA respeitou a regra de não inventar ("não tenho dados calculados") e citou fontes reais. Ajustes: ficha com os três perfis tarifários; chave do cache inclui instruções + ficha.
 - [ ] Link abre em janela anônima, sem login.
 - [ ] Aba Assistente mostra "IA generativa ativa" e responde em menos de ~30 s.
 - [ ] Desligar o seletor "Usar IA generativa" → resposta aparece como "Modo cálculo".

@@ -58,11 +58,12 @@ def responder(
     config: ConfigIA,
     historico: list[dict] | None = None,
     usar_ia: bool = True,
+    perfis: list[dict] | None = None,
 ) -> Resposta:
     pergunta = (pergunta or "").strip()[:800]
     if not pergunta:
         return Resposta("Escreva uma pergunta sobre o consumo do banho.", "calculo")
-    ficha = montar_ficha(res, sensibilidade, recs)
+    ficha = montar_ficha(res, sensibilidade, recs, perfis)
     aviso = None
     if usar_ia and config.disponivel:
         try:
@@ -72,7 +73,14 @@ def responder(
             aviso = f"IA generativa indisponível agora ({e}) Resposta gerada no modo cálculo."
     elif usar_ia:
         aviso = "IA generativa não configurada neste servidor. Resposta gerada no modo cálculo."
-    return Resposta(responder_por_regras(pergunta, res, sensibilidade, recs), "calculo", aviso=aviso)
+    return Resposta(responder_por_regras(pergunta, res, sensibilidade, recs, perfis), "calculo", aviso=aviso)
 
 
-__all__ = ["ConfigIA", "Resposta", "montar_mensagens", "responder"]
+def versao_instrucoes(ficha: str) -> str:
+    """Identificador das instruções + ficha, usado na chave do cache de respostas."""
+    import hashlib
+
+    return hashlib.sha256((INSTRUCOES + ficha).encode("utf-8")).hexdigest()[:16]
+
+
+__all__ = ["ConfigIA", "Resposta", "montar_mensagens", "responder", "versao_instrucoes"]

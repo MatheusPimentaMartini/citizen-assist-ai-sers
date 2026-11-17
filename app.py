@@ -11,13 +11,13 @@ import time
 import pandas as pd
 import streamlit as st
 
-from assistente import ConfigIA, responder
+from assistente import ConfigIA, responder, versao_instrucoes
 from assistente.contexto import FONTES_CURTAS, FONTES_RESUMO, LIMITACOES, montar_ficha
 from assistente.modo_calculo import normalizar
 from energia import (
     BaseDados, Cenario, Familia, PraticasEficientes, Premissas, SistemaSolar, analisar, recomendacoes,
 )
-from energia.analise import MESES_NOME, sensibilidade_solar
+from energia.analise import MESES_NOME, comparar_perfis, sensibilidade_solar
 from energia.formatacao import num, pct, reais
 from energia.tarifa import PERFIS
 
@@ -52,7 +52,7 @@ def calcular(pessoas, minutos, potencia, consumo, perfil, minutos_a, ajuste, inv
     base = base_dados()
     res = analisar(cenario, base)
     sens = sensibilidade_solar(cenario, base)
-    return res, sens, recomendacoes(res, sens)
+    return res, sens, recomendacoes(res, sens), comparar_perfis(cenario, base)
 
 
 def configuracao_ia() -> ConfigIA:
@@ -98,7 +98,7 @@ with st.sidebar:
         help="Referência SINAPI 103517 (kit 2 m² + 200 L instalado, set/2026). Troque pelo seu orçamento.",
     )
 
-res, sens, recs = calcular(pessoas, minutos, potencia, consumo, perfil, minutos_a, ajuste, investimento)
+res, sens, recs, perfis = calcular(pessoas, minutos, potencia, consumo, perfil, minutos_a, ajuste, investimento)
 L0, A, B = (res.alternativas[k] for k in ("L0", "A", "B"))
 d = res.derivados
 
@@ -234,15 +234,15 @@ with aba_chat:
         st.session_state.mensagens.append({"role": "user", "content": pergunta})
         with st.chat_message("user"):
             st.markdown(pergunta)
-        chave = (normalizar(pergunta).strip(), pessoas, minutos, potencia, consumo, perfil, minutos_a, ajuste,
-                 investimento, config.modelo)
+        ficha_atual = montar_ficha(res, sens, recs, perfis)
+        chave = (normalizar(pergunta).strip(), versao_instrucoes(ficha_atual), config.modelo)
         g = estado_global()
         resposta = g["respostas"].get(chave) if usar_ia else None
         ia_liberada, motivo = pode_chamar_ia() if (usar_ia and resposta is None) else (usar_ia, "")
         with st.chat_message("assistant"):
             if resposta is None:
                 with st.spinner("Calculando a resposta..."):
-                    resposta = responder(pergunta, res, sens, recs, config, usar_ia=usar_ia and ia_liberada)
+                    resposta = responder(pergunta, res, sens, recs, config, usar_ia=usar_ia and ia_liberada, perfis=perfis)
                 if usar_ia and not ia_liberada:
                     resposta.aviso = motivo + " Resposta gerada no modo cálculo."
                 if resposta.modo == "ia":
@@ -272,7 +272,7 @@ with aba_chat:
         st.session_state.mensagens = []
         st.rerun()
     with st.expander("Ver a ficha de cálculo que fundamenta as respostas"):
-        st.code(montar_ficha(res, sens, recs), language="markdown")
+        st.code(montar_ficha(res, sens, recs, perfis), language="markdown")
 
 # ----------------------------------------------------------------------------- método
 with aba_metodo:

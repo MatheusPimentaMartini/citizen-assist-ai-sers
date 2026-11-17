@@ -63,7 +63,7 @@ cd citizen-assist-ai-sers
 python -m venv .venv
 # Windows: .venv\Scripts\activate    |    macOS/Linux: source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest                         # 54 testes automatizados
+pytest                         # 55 testes automatizados
 streamlit run app.py           # http://localhost:8501 (modo cálculo, sem chave)
 python scripts/gerar_resultados.py   # regenera docs/resultados.md e resultados/*.csv
 ```
@@ -93,7 +93,7 @@ Principais limitações: estimativas (não garantias); conta sem bandeiras e COS
 
 ## Testes
 
-- **Técnicos:** 54 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
+- **Técnicos:** 55 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
 - **Com usuários:** roteiro, registros e ajustes em [`docs/testes_usuarios/`](docs/testes_usuarios/).
 
 ## Estrutura

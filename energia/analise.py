@@ -233,3 +233,22 @@ def sensibilidade_solar(cenario: Cenario, base: BaseDados) -> list[dict]:
             "dias_com_complemento_por_ano": b["dias_com_complemento_por_ano"],
         })
     return linhas
+
+
+def comparar_perfis(cenario: Cenario, base: BaseDados) -> list[dict]:
+    """Mesmo cenário nos três perfis tarifários (para quem tem ou pode ter Tarifa/Desconto Social)."""
+    from dataclasses import replace
+
+    linhas = []
+    for perfil, descricao in PERFIS.items():
+        r = analisar(replace(cenario, perfil_tarifario=perfil), base)
+        a, b = r.alternativas["A"], r.alternativas["B"]
+        linhas.append({
+            "perfil": perfil,
+            "descricao": descricao,
+            "conta_atual_mes_rs": r.derivados["conta_atual_mes_medio_rs"],
+            "economia_a_ano_rs": a["economia_ano_rs"],
+            "economia_b_ano_rs": b["economia_ano_rs"],
+            "retorno_b_anos": b["retorno_simples_anos"],
+        })
+    return linhas
