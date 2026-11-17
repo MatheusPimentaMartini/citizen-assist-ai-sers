@@ -1,0 +1,4 @@
+,nome,chuveiro_kwh_ano,chuveiro_kwh_mes_medio,economia_kwh_ano,reducao_consumo_chuveiro,conta_energia_ano_rs,conta_energia_mes_medio_rs,economia_ano_rs,economia_mes_medio_rs,investimento_rs,retorno_simples_anos,co2_kg_ano,agua_m3_ano,fracao_solar_ano,dias_com_complemento_por_ano,chuveiro_kwh_ano_min,chuveiro_kwh_ano_max,ano_pior,ano_melhor,mes_menor_fracao_solar,menor_fracao_solar_mensal
+L0,Chuveiro elétrico convencional (situação atual),1071.5,89.3,0.0,0.0,2388.83,199.07,0.0,0.0,0.0,,49.5,36.6,,,,,,,,
+A,Chuveiro elétrico com práticas de uso eficiente,572.4,47.7,499.1,0.466,1813.99,151.17,574.84,47.9,0.0,,26.9,22.9,,,,,,,,
+B,Aquecimento solar térmico + chuveiro como complemento,1.3,0.1,1070.3,0.999,1268.93,105.74,1119.89,93.32,3359.57,3.0,0.1,36.6,0.999,2.0,0.0,5.1,2016,2019,6,0.993

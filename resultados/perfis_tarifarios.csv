@@ -1,0 +1,7 @@
+Perfil,Conta (kWh/mês),Conta hoje (R$/mês),Economia A (R$/ano),Economia B (R$/ano),Retorno B
+convencional,150,"R$ 143,14","R$ 476,28","R$ 1.104,90","3,0 anos"
+convencional,200,"R$ 199,07","R$ 574,84","R$ 1.119,89","3,0 anos"
+convencional,250,"R$ 256,03","R$ 525,06","R$ 1.230,81","2,7 anos"
+convencional,300,"R$ 307,23","R$ 511,13","R$ 1.096,07","3,1 anos"
+desconto social,150,"R$ 120,55","R$ 450,10","R$ 954,71","3,5 anos"
+tarifa social,150,"R$ 52,73","R$ 375,95","R$ 632,73","5,3 anos"

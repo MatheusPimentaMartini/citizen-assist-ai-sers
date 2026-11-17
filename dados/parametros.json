@@ -1,0 +1,180 @@
+{
+  "_sobre": "Parâmetros do modelo. 'tipo' indica a natureza do valor: oficial (órgão público/regulador), literatura (artigo, norma, fabricante, entidade), estimativa (calculado pelo grupo a partir de dados públicos) ou premissa (escolha do grupo para o cenário de referência). Detalhes e links em dados/FONTES.md.",
+  "local": {
+    "cidade": "São Paulo - SP (Região Metropolitana)",
+    "latitude": -23.55,
+    "longitude": -46.63,
+    "distribuidora": "Enel Distribuição São Paulo (sigla ANEEL: ELETROPAULO)"
+  },
+  "banho": {
+    "pessoas": {
+      "valor": 4,
+      "unidade": "pessoas",
+      "tipo": "premissa",
+      "fonte": "Cenário de referência (família de 4). Coincide com a base do consumo da etiqueta INMETRO (32 min/dia)."
+    },
+    "minutos_por_banho": {
+      "valor": 8,
+      "unidade": "min",
+      "tipo": "literatura",
+      "fonte": "Vaz, Rodrigues e Ghisi (ENCAC/ANTAC): 8 min, 1 banho/pessoa/dia."
+    },
+    "potencia_chuveiro_w": {
+      "valor": 5500,
+      "unidade": "W",
+      "tipo": "literatura",
+      "fonte": "Potência comum em 127 V; exemplo INMETRO citado pelo Idec: 5.500 W -> 88 kWh/mês."
+    },
+    "temperatura_banho_c": {
+      "valor": 40,
+      "unidade": "°C",
+      "tipo": "literatura",
+      "fonte": "INMETRO (2022), adotado por Vaz, Rodrigues e Ghisi (ENCAC/ANTAC) para São Paulo."
+    },
+    "eficiencia_chuveiro": {
+      "valor": 0.95,
+      "unidade": "fração",
+      "tipo": "literatura",
+      "fonte": "Idec: chuveiros elétricos convertem mais de 95% da energia em calor na água."
+    },
+    "temperatura_agua_fria": {
+      "valor": "média mensal do ar",
+      "unidade": "°C",
+      "tipo": "estimativa",
+      "fonte": "Aproximação usada por Vaz, Rodrigues e Ghisi (ENCAC/ANTAC); temperatura do ar do Open-Meteo 2016-2025."
+    }
+  },
+  "alternativa_a": {
+    "minutos_por_banho": {
+      "valor": 5,
+      "unidade": "min",
+      "tipo": "literatura",
+      "fonte": "Recomendação da Sabesp de banhos de até 5 minutos."
+    },
+    "ajuste_potencia_no_calor": {
+      "valor": true,
+      "unidade": "-",
+      "tipo": "premissa",
+      "fonte": "Usar a posição/temperatura mínima que ainda entrega 40 °C (posição 'verão' em meses quentes). Limite superior: supõe ajuste fino."
+    }
+  },
+  "alternativa_b": {
+    "area_coletor_m2": {
+      "valor": 2.0,
+      "unidade": "m²",
+      "tipo": "oficial",
+      "fonte": "SINAPI 103517 (kit com coletor de 2,0 m² e reservatório de 200 L)."
+    },
+    "volume_reservatorio_l": {
+      "valor": 200,
+      "unidade": "L",
+      "tipo": "oficial",
+      "fonte": "SINAPI 103517."
+    },
+    "investimento_rs": {
+      "valor": 3359.57,
+      "unidade": "R$",
+      "tipo": "oficial",
+      "fonte": "SINAPI 103517 (aquecedor solar compacto, kit com 1 coletor em vidro temperado e serpentina de cobre, reservatório inox 200 L), fornecimento e instalação, média nacional, não desonerado, referência 09/2026 (consulta via orcamentor.com). O insumo 34472 indica uso em residências de até 120 m² e 4 a 5 banhos por dia. Não inclui conexões, bomba e válvulas."
+    },
+    "pmee_kwh_mes_m2": {
+      "valor": 90.9,
+      "unidade": "kWh/(mês·m²)",
+      "tipo": "literatura",
+      "fonte": "Datasheet Komeco, coletor KOCS AP 2M (INMETRO classe A, registro 001004/2024): 178 kWh/mês, 1,96 m², 90,9 kWh/mês·m²."
+    },
+    "irradiacao_referencia_kwh_m2_dia": {
+      "valor": 4.889,
+      "unidade": "kWh/(m²·dia)",
+      "tipo": "oficial",
+      "fonte": "Dia padrão do ensaio INMETRO para coletores: 17,6 MJ/m²·dia."
+    },
+    "fator_perdas": {
+      "valor": 0.15,
+      "unidade": "fração da energia útil",
+      "tipo": "literatura",
+      "fonte": "Perdas térmicas de circuito e armazenamento estimadas em 15% (método da ABNT NBR 15569, conforme Ara e Sowmy, CBENS 2016)."
+    },
+    "temperatura_maxima_reservatorio_c": {
+      "valor": 60,
+      "unidade": "°C",
+      "tipo": "premissa",
+      "fonte": "Limite de armazenamento útil adotado no modelo."
+    },
+    "inclinacao_coletor_graus": {
+      "valor": 34,
+      "unidade": "graus, voltado ao norte",
+      "tipo": "oficial",
+      "fonte": "CRESESB SunData: ângulo de 'maior mínimo mensal' para São Paulo (favorece o inverno)."
+    },
+    "perda_especifica_reservatorio_kwh_l_mes": {
+      "valor": 0.27,
+      "unidade": "kWh/(L·mês)",
+      "tipo": "oficial",
+      "fonte": "INMETRO, Portaria 301/2012, Tabela 3: perda específica máxima para reservatórios de 100 a 300 L (ensaio com água a 50 °C e ambiente a 21 °C). Usamos o limite (cenário conservador)."
+    }
+  },
+  "tarifa": {
+    "fonte": "ANEEL, dados abertos 'Tarifas de aplicação das distribuidoras', REH nº 3.596/2026, Enel SP, B1 convencional, vigência 04/07/2026 a 03/07/2027.",
+    "residencial_tusd_rs_mwh": 472.42,
+    "residencial_te_rs_mwh": 316.96,
+    "baixa_renda_tusd_rs_mwh": 306.31,
+    "baixa_renda_te_rs_mwh": 316.78,
+    "desconto_social_faixa1_tusd_rs_mwh": 316.88,
+    "desconto_social_faixa1_te_rs_mwh": 316.78,
+    "tarifa_social_gratuidade_kwh": {
+      "valor": 80,
+      "tipo": "oficial",
+      "fonte": "Lei 15.235/2025: gratuidade até 80 kWh/mês para famílias do CadÚnico com renda per capita de até 1/2 salário mínimo."
+    },
+    "desconto_social_limite_kwh": {
+      "valor": 120,
+      "tipo": "oficial",
+      "fonte": "Lei 15.235/2025: desconto social (sem CDE) até 120 kWh/mês para renda per capita entre 1/2 e 1 salário mínimo; faixa 01 da REH 3.596/2026."
+    },
+    "pis_cofins": {
+      "valor": 0.06,
+      "tipo": "estimativa",
+      "fonte": "Estimativa do grupo a partir de faturas públicas da Enel SP de 2026 (portal da Câmara dos Deputados): cinco faturas entre 6,0% e 6,05% e uma com 4,3%. Varia mês a mês."
+    },
+    "icms_faixas": {
+      "valor": [
+        [
+          90,
+          0.0
+        ],
+        [
+          200,
+          0.12
+        ],
+        [
+          null,
+          0.18
+        ]
+      ],
+      "tipo": "oficial",
+      "fonte": "SP: isenção até 90 kWh (Lei 12.185/2006); 12% até 200 kWh (Lei 6.374/1989, art. 34); 18% acima de 200 kWh (após a LC 194/2022)."
+    },
+    "nao_incluido": "Bandeiras tarifárias, contribuição de iluminação pública (COSIP) e multas/juros."
+  },
+  "emissoes": {
+    "fonte": "MCTI/SIRENE, fator médio mensal de emissão do SIN para inventários (arquivo Inventario_2026_janset.xlsx).",
+    "ano_base_mensal": 2025,
+    "fator_medio_anual_2025_tco2_mwh": 0.0461
+  },
+  "clima": {
+    "irradiacao_diaria": "Open-Meteo Historical Weather API (reanálise), ponto -23,515; -46,611; 737 m; 2016-01-01 a 2025-12-31; shortwave_radiation_sum (MJ/m²) / 3,6.",
+    "irradiacao_plano_inclinado": "CRESESB SunData v3.0 (Atlas Brasileiro de Energia Solar, 2ª ed., 2017), ponto São Paulo 23,5° S; 46,649° O (5,9 km do ponto de referência).",
+    "temperatura": "Open-Meteo, temperature_2m_mean, média mensal 2016-2025."
+  },
+  "sensibilidade": {
+    "pmee_minimo_kwh_mes_m2": {
+      "valor": 52.3,
+      "fonte": "INMETRO, Portaria 301/2012: limite inferior da classe E."
+    },
+    "fator_uso_agua_quente": {
+      "valor": 2.0,
+      "fonte": "Estudo da USP (citado pela ABINEE e pelo Idec): chuveiro elétrico 4,2 L/min x aquecedor solar 8,4 L/min."
+    }
+  }
+}
