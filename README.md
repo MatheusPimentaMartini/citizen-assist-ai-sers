@@ -5,7 +5,7 @@ Global Solution 2026.2 — **Soluções em Energias Renováveis e Sustentáveis 
 > Assistente que ajuda famílias da Grande São Paulo a reduzir o gasto com o **chuveiro elétrico**, comparando o uso atual, práticas de uso eficiente e **aquecimento solar térmico** com dados públicos, cálculos verificáveis e uma IA generativa que responde **apenas** com base nesses cálculos.
 
 - **App online:** https://citizen-assist-ai-sers-fwnb3a5vpzskwhxhttqnrm.streamlit.app/
-- **Vídeo (YouTube, não listado):** _(preencher)_
+- **Vídeo (YouTube, não listado):** https://youtu.be/vqQ1qcr75XE
 
 ## Integrantes
 
