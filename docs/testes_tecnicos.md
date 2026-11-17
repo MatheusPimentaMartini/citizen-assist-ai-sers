@@ -22,7 +22,9 @@ Verificação automatizada no ambiente de desenvolvimento, com `scripts/capturar
 | Celular (390 × 844) | não | nenhum | nenhum |
 | Computador (1280 × 900) | não | nenhum | nenhum |
 
-Na primeira execução o botão "Limpar conversa" tinha menos de 44 px; o `estilo.css` passou a dar 48 px também a esse tipo de botão. Capturas e decisões: [`interface.md`](interface.md).
+App publicado conferido em 17/11/2026, depois do deploy da versão 2 (navegador com tela emulada de celular, 375 × 812, e de computador, 1280 × 900): as seções abrem; "Calcular minha economia" leva até o resultado com os mesmos valores de `docs/resultados.md` (conta R$ 199,07 / R$ 151,17 / R$ 105,74 por mês); as respostas continuam guardadas ao voltar para Simular; o assistente mostra "IA generativa ativa (Ollama Cloud · modelo gpt-oss:20b)" e a pergunta sugerida "O aquecedor solar vale a pena para mim?" foi respondida pela IA com o rótulo "Resposta da IA generativa", com cenário pessimista, limitações e fontes, sem aviso do verificador; sem rolagem horizontal nas duas larguras.
+
+Na primeira execução do script o botão "Limpar conversa" tinha menos de 44 px; o `estilo.css` passou a dar 48 px também a esse tipo de botão. Capturas e decisões: [`interface.md`](interface.md).
 
 Checklist manual com a interface nova (cada integrante, no próprio celular):
 
