@@ -14,4 +14,6 @@ Preencha uma linha por problema encontrado nos testes com usuários (ver `roteir
 | T2 | Revisão da análise | Resultado do solar dependia de premissas incertas | Criada a análise de sensibilidade com valores com fonte (coletor mínimo INMETRO, vazão do estudo da USP) |
 | T3 | Teste do assistente | Resposta sobre "inverno" citava o mês errado (índice do mês deslocado) | Corrigido o índice e trocada a base para o consumo da alternativa A |
 | T4 | Revisão de fontes | PMEe usado (90,8) diferia do datasheet (90,9) | Ajustado para o valor publicado pelo fabricante |
-| T5 | Teste do app publicado | Ollama Cloud respondeu HTTP 402 para `gpt-oss:120b` (fora do plano gratuito); a mensagem era genérica | Modelo padrão `gpt-oss:20b` (baixo uso) e mensagem específica para o erro 402 |
+| T5 | Teste do app publicado | Ollama Cloud respondeu HTTP 402 (conta sem créditos) e a mensagem era genérica | Mensagem específica para 402 com o detalhe do serviço; modelo `gpt-oss:20b` (mais barato); compra de US$ 5 de créditos |
+| T6 | Teste do app publicado | Verificador marcou como "não conferidos" números corretos escritos com espaço de milhar (R$ 3 359,57) | Verificador passa a aceitar espaço como separador de milhar + teste de regressão com a resposta real |
+| T7 | Teste do app publicado | Resposta da IA não citava fontes nem o cenário pessimista do solar | Instruções exigem linhas finais "Limitações:" e "Fontes:" e o cenário pessimista ao falar do solar |

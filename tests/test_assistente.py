@@ -116,3 +116,20 @@ def test_detalhe_do_erro_aparece_na_mensagem(monkeypatch):
     monkeypatch.setattr(requests, "post", lambda *a, **k: RespostaFalsa(402, {"error": "add credits to continue"}))
     with pytest.raises(ErroPlano, match="add credits to continue"):
         conversar(ConfigIA(api_key="chave-de-teste"), [{"role": "user", "content": "oi"}])
+
+
+def test_numeros_com_espaco_de_milhar():
+    # a IA às vezes escreve "R$ 3 359,57" ou "1 070 kWh"
+    texto = "Investimento: R$ 3 359,57; economia R$ 1 119,89 (≈ 1 070 kWh/ano, 100 % do chuveiro); 4 pessoas"
+    assert [v for v, _, _ in extrair_numeros(texto)] == [3359.57, 1119.89, 1070.0, 100.0, 4.0]
+
+
+def test_resposta_real_da_ia_nao_gera_falso_alarme(caso):
+    """Trecho da primeira resposta real do app publicado (17/11/2026), que antes gerava alerta falso."""
+    res, sens, recs = caso
+    ficha = montar_ficha(res, sens, recs)
+    resposta = ("Investimento: R$ 3 359,57 (kit 2 m² + reservatório 200 L). Retorno simples: 3,0 anos. "
+                "Economia anual: R$ 1 119,89 (≈ 1 070 kWh/ano, 100 % do chuveiro). CO₂: 0,1 kg/ano. "
+                "Água: 36,6 m³/ano. Práticas eficientes: R$ 574,84/ano (499 kWh/ano) e 13,7 mil L. "
+                "O solar cobre 99,9 % da energia do banho.")
+    assert numeros_nao_conferidos(resposta, ficha) == []

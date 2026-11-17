@@ -16,7 +16,7 @@ Ollama Cloud  (POST https://ollama.com/api/chat)  ── só redige a resposta a
 | --- | --- | --- |
 | Quem testa precisa instalar algo? | Sim (Ollama + modelo de vários GB) | Não, só abre o link |
 | Depende do computador do aluno? | Sim (RAM/GPU; no nosso caso não estava funcionando) | Não |
-| Custo | Grátis, mas pesado | Conta gratuita com cota limitada de uso |
+| Custo | Grátis, mas pesado | Créditos pré-pagos: menos de US$ 0,001 por pergunta (US$ 5 comprados) |
 | Segurança da chave | Não há chave | Chave fica só no servidor (Secrets), nunca no código |
 | Se a IA falhar | O app inteiro para de responder | O app continua no **modo cálculo** |
 
@@ -45,7 +45,9 @@ O Streamlit Community Cloud foi escolhido porque é gratuito, publica direto do 
 
 ### Trocar o modelo
 
-Usamos `gpt-oss:20b`, um dos modelos de **baixo uso** indicados como ponto de partida do plano gratuito. No primeiro teste publicado (17/11/2026), `gpt-oss:120b` respondeu **HTTP 402** (a conta gratuita não tinha plano/créditos para ele) e o app caiu corretamente no modo cálculo; por isso o padrão passou a ser o 20b. Para trocar, edite `OLLAMA_MODEL` no Secrets (lista de modelos em https://ollama.com/search?c=cloud). Se o modelo não existir ou não estiver no plano, o app avisa e responde no modo cálculo.
+Usamos `gpt-oss:20b`. Em 17/11/2026 a página de preços do Ollama (https://ollama.com/pricing) já não oferecia cota gratuita na nuvem: o plano de entrada é **"Pay as you go"** (US$ 0/mês, pagamento por token com créditos). Nos testes do app publicado, sem créditos, a API respondeu **HTTP 402** ("Add usage credits or subscribe") para `gpt-oss:120b` e para `gpt-oss:20b`, e o app caiu corretamente no modo cálculo. A equipe comprou **US$ 5 de créditos** (valor mínimo), sem assinatura, e a IA passou a responder.
+
+**Custo estimado** (tabela oficial: `gpt-oss:20b` = US$ 0,07 por milhão de tokens de entrada e US$ 0,30 por milhão de saída): cada pergunta envia cerca de 3 mil tokens (instruções + ficha de cálculo) e recebe até ~800, ou seja, **menos de US$ 0,001 por pergunta** — os US$ 5 cobrem milhares de perguntas. Os limites do app (15 por sessão, 120 por hora) impedem gasto alto se o link circular. Para trocar o modelo, edite `OLLAMA_MODEL` no Secrets (lista em https://ollama.com/search?c=cloud); `gpt-oss:120b` custa cerca do dobro por pergunta.
 
 ## Como o app lida com falhas
 
@@ -95,7 +97,7 @@ No GitHub, **Code → Download ZIP** baixa todo o projeto (código, dados, docum
 | IA generativa | Ollama Cloud com a chave do Secrets | Sem chave: modo cálculo. Com `secrets.toml` ou Ollama local: IA |
 | Cálculos e dados | Idênticos (mesmo código e mesmos CSV do repositório) | Idênticos |
 | Disponibilidade | Pode "dormir" após 12 h sem uso; acorda com um clique | Enquanto o terminal estiver aberto |
-| Limites | Cota do Ollama Cloud + limites do app (15/sessão, 120/hora) | Os da conta/máquina usada |
+| Limites | Créditos da conta Ollama + limites do app (15/sessão, 120/hora) | Os da conta/máquina usada |
 
 ## Segurança e privacidade
 

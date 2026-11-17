@@ -7,12 +7,16 @@ from __future__ import annotations
 
 import re
 
-_NUMERO = re.compile(r"(?<![\w.,])(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+,\d+|\d+\.\d{1,2}(?!\d)|\d+)(\s*%)?")
+# Milhar com ponto (1.234,56) ou com espaço (1 234,56 — comum em respostas de IA).
+_NUMERO = re.compile(
+    r"(?<![\w.,])(\d{1,3}(?:[. ]\d{3})+(?![\d])(?:,\d+)?|\d+,\d+|\d+\.\d{1,2}(?!\d)|\d+)(\s*%)?"
+)
+_ESPACOS = str.maketrans({"\u00a0": " ", "\u202f": " ", "\u2009": " ", "\u2007": " "})
 
 
 def _para_float(bruto: str) -> float:
-    if re.fullmatch(r"\d{1,3}(?:\.\d{3})+(?:,\d+)?", bruto):  # 1.234,56 (pt-BR)
-        return float(bruto.replace(".", "").replace(",", "."))
+    if re.fullmatch(r"\d{1,3}(?:[. ]\d{3})+(?:,\d+)?", bruto):  # 1.234,56 ou 1 234,56
+        return float(bruto.replace(".", "").replace(" ", "").replace(",", "."))
     if "," in bruto:  # 12,5
         return float(bruto.replace(",", "."))
     return float(bruto)  # 12 ou 12.5
@@ -20,7 +24,7 @@ def _para_float(bruto: str) -> float:
 
 def extrair_numeros(texto: str) -> list[tuple[float, str, bool]]:
     saida = []
-    for m in _NUMERO.finditer(texto):
+    for m in _NUMERO.finditer(texto.translate(_ESPACOS)):
         bruto, porcento = m.group(1), bool(m.group(2))
         try:
             saida.append((_para_float(bruto), bruto + ("%" if porcento else ""), porcento))

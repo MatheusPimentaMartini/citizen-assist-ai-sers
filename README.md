@@ -63,7 +63,7 @@ cd citizen-assist-ai-sers
 python -m venv .venv
 # Windows: .venv\Scripts\activate    |    macOS/Linux: source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest                         # 52 testes automatizados
+pytest                         # 54 testes automatizados
 streamlit run app.py           # http://localhost:8501 (modo cálculo, sem chave)
 python scripts/gerar_resultados.py   # regenera docs/resultados.md e resultados/*.csv
 ```
@@ -93,7 +93,7 @@ Principais limitações: estimativas (não garantias); conta sem bandeiras e COS
 
 ## Testes
 
-- **Técnicos:** 52 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
+- **Técnicos:** 54 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
 - **Com usuários:** roteiro, registros e ajustes em [`docs/testes_usuarios/`](docs/testes_usuarios/).
 
 ## Estrutura
@@ -112,3 +112,5 @@ tests/                  # pytest
 ## Uso de IA generativa e segurança
 
 A IA **não calcula nada**: os números vêm do pacote `energia`. Ela só redige a resposta a partir da ficha de cálculo, com regras para citar fontes, deixar claro que são estimativas e não inventar valores. A chave do Ollama Cloud fica apenas no Secrets do Streamlit; não há chave no código, no histórico nem no ZIP. O app não armazena conversas.
+
+Custo: o Ollama Cloud cobra por token com créditos pré-pagos; com o modelo `gpt-oss:20b`, cada pergunta custa menos de US$ 0,001 (estimativa pela tabela oficial de preços). Os limites do app (15 perguntas por sessão e 120 por hora) protegem os créditos.
