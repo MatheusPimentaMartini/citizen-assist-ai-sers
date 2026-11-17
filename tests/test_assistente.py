@@ -54,8 +54,8 @@ def test_verificador_aponta_numero_inventado(caso):
 
 
 class RespostaFalsa:
-    def __init__(self, status, corpo=None):
-        self.status_code, self._corpo = status, corpo
+    def __init__(self, status, corpo=None, text=""):
+        self.status_code, self._corpo, self.text = status, corpo, text
 
     def json(self):
         if self._corpo is None:
@@ -110,3 +110,9 @@ def test_config_le_variaveis_de_ambiente(monkeypatch):
     assert cfg.disponivel and cfg.modelo == "gpt-oss:20b" and cfg.host == "https://ollama.com"
     monkeypatch.delenv("OLLAMA_API_KEY")
     assert not ConfigIA.carregar({}).disponivel
+
+
+def test_detalhe_do_erro_aparece_na_mensagem(monkeypatch):
+    monkeypatch.setattr(requests, "post", lambda *a, **k: RespostaFalsa(402, {"error": "add credits to continue"}))
+    with pytest.raises(ErroPlano, match="add credits to continue"):
+        conversar(ConfigIA(api_key="chave-de-teste"), [{"role": "user", "content": "oi"}])

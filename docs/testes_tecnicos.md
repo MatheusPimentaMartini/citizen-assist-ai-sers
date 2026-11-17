@@ -11,7 +11,7 @@ Rodar: `pip install -r requirements-dev.txt` e `pytest`.
 | `tests/test_app.py` | App abre sem chave (modo cálculo), responde no chat e recalcula ao mudar a potência (sem navegador, `streamlit.testing`) |
 | `tests/test_integracao_http.py` | Ponta a ponta com um servidor HTTP falso no formato da API do Ollama: o app envia a ficha de cálculo e mostra a resposta como IA generativa |
 
-Resultado na última execução da equipe: **51 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67).
+Resultado na última execução da equipe: **52 testes aprovados** (Python 3.13, pandas 3.0, Streamlit 1.67).
 
 ## Checklist manual após publicar (marcar com data)
 

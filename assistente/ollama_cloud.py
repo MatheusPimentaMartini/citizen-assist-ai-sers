@@ -83,6 +83,22 @@ class ConfigIA:
         return f"{onde} · modelo {self.modelo}"
 
 
+def _detalhe(r) -> str:
+    """Mensagem de erro devolvida pelo serviço (ex.: {"error": "..."}), curta e sem quebras de linha."""
+    try:
+        corpo = r.json()
+    except ValueError:
+        corpo = None
+    if isinstance(corpo, dict):
+        texto = corpo.get("error") or corpo.get("message") or ""
+        if isinstance(texto, dict):
+            texto = texto.get("message", "")
+    else:
+        texto = getattr(r, "text", "") or ""
+    texto = " ".join(str(texto).split())[:200]
+    return f" Detalhe do serviço: {texto}" if texto else ""
+
+
 def conversar(config: ConfigIA, mensagens: list[dict], temperatura: float = 0.2) -> str:
     if not config.disponivel:
         raise ErroIA("IA generativa não configurada (falta a chave OLLAMA_API_KEY no servidor).")
@@ -104,20 +120,20 @@ def conversar(config: ConfigIA, mensagens: list[dict], temperatura: float = 0.2)
         raise ErroConexao("Não foi possível conectar ao serviço de IA.") from e
 
     if r.status_code in (401, 403):
-        raise ErroAutenticacao("A chave da IA foi recusada (inválida, revogada ou sem permissão).")
+        raise ErroAutenticacao("A chave da IA foi recusada (inválida, revogada ou sem permissão)." + _detalhe(r))
     if r.status_code == 402:
         raise ErroPlano(
-            f"A conta do Ollama Cloud não tem plano ou créditos para o modelo '{config.modelo}' (HTTP 402). "
-            "Use um modelo do plano gratuito, como gpt-oss:20b, ou adicione créditos."
+            f"A conta do Ollama Cloud não tem plano ou créditos para usar o modelo '{config.modelo}' pela API "
+            "(HTTP 402)." + _detalhe(r)
         )
     if r.status_code == 404:
-        raise ErroModelo(f"O modelo '{config.modelo}' não está disponível no serviço de IA.")
+        raise ErroModelo(f"O modelo '{config.modelo}' não está disponível no serviço de IA." + _detalhe(r))
     if r.status_code == 429:
-        raise ErroLimite("Limite de uso da IA atingido no momento. Tente mais tarde.")
+        raise ErroLimite("Limite de uso da IA atingido no momento. Tente mais tarde." + _detalhe(r))
     if r.status_code >= 500:
-        raise ErroServidor("O serviço de IA está instável no momento.")
+        raise ErroServidor("O serviço de IA está instável no momento." + _detalhe(r))
     if r.status_code != 200:
-        raise ErroIA(f"O serviço de IA respondeu com erro (HTTP {r.status_code}).")
+        raise ErroIA(f"O serviço de IA respondeu com erro (HTTP {r.status_code})." + _detalhe(r))
     try:
         texto = r.json()["message"]["content"]
     except (ValueError, KeyError, TypeError) as e:
