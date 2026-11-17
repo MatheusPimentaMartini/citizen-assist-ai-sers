@@ -108,6 +108,7 @@ st.caption(
     "práticas de uso eficiente e aquecimento solar térmico para a **mesma necessidade** (banho a 40 °C). "
     "Projeto acadêmico FIAP · Global Solution 2026.2 · SERS. **Valores são estimativas, não garantias.**"
 )
+st.caption("📱 No celular, toque em **»** no canto superior esquerdo para abrir **Sua casa** e informar os dados da sua família.")
 for aviso in res.avisos:
     st.warning(aviso)
 

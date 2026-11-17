@@ -22,9 +22,10 @@ Resultado na última execução da equipe: **55 testes aprovados** (Python 3.13,
 - [x] 17/11/2026 — Segunda resposta da IA: sem alertas do verificador, com cenário pessimista e linhas de limitações/fontes, mas chamou de "economia" o consumo restante do solar e citou "ficha de cálculo" como fonte. Ajustes: ficha com rótulos explícitos por alternativa e legenda fixa de fontes no app.
 - [x] 17/11/2026 — Pergunta sobre Tarifa Social: a IA respeitou a regra de não inventar ("não tenho dados calculados") e citou fontes reais. Ajustes: ficha com os três perfis tarifários; chave do cache inclui instruções + ficha.
 - [x] 17/11/2026 — Com a ficha nova, a IA respondeu sobre Tarifa Social com os números corretos (conta R$ 94,30/mês; economia do solar R$ 853,11/ano; retorno 3,9 anos). Ela tentou calcular um valor mensal por conta própria (R$ 70,92) e o **verificador sinalizou** o número — exatamente o comportamento esperado. Ela também aplicou o cenário pessimista do perfil convencional à Tarifa Social; ajuste: o título da sensibilidade na ficha passa a dizer a qual perfil ela se refere.
-- [ ] Link abre em janela anônima, sem login.
-- [ ] Aba Assistente mostra "IA generativa ativa" e responde em menos de ~30 s.
-- [ ] Desligar o seletor "Usar IA generativa" → resposta aparece como "Modo cálculo".
-- [ ] Mudar a potência para 7.500 W altera os números da aba Comparação.
-- [ ] Perfil "Tarifa Social" com 150 kWh reduz a economia em R$ do solar.
-- [ ] Testado por Leonardo, Lucas e professor em outros computadores (anotar data e navegador).
+- [x] 17/11/2026 — Matheus, Leonardo e Lucas, cada um no próprio computador e com o mesmo resultado: link abre em janela anônima, sem login.
+- [x] 17/11/2026 — Matheus, Leonardo e Lucas: aba Assistente mostra "IA generativa ativa" e responde em menos de ~30 s.
+- [x] 17/11/2026 — Matheus, Leonardo e Lucas: desligar o seletor "Usar IA generativa" → resposta aparece como "Modo cálculo" ([print](evidencias/2026-11-17_modo_calculo.png)).
+- [x] 17/11/2026 — Matheus, Leonardo e Lucas: mudar a potência (7.000 → 7.500 W) altera os números da aba Comparação ([antes](evidencias/2026-11-17_potencia_7000W.jpg) · [depois](evidencias/2026-11-17_potencia_7500W.jpg)).
+- [x] 17/11/2026 — Matheus, Leonardo e Lucas: perfil "Tarifa Social" com 150 kWh reduz a economia em R$ do solar.
+- [x] 17/11/2026 — Testado por Matheus, Leonardo e Lucas em computadores diferentes (navegadores não anotados).
+- [ ] Professor: enviar o link e anotar a data em que ele testou (se testar antes da entrega).
