@@ -30,7 +30,7 @@ O Streamlit Community Cloud foi escolhido porque é gratuito, publica direto do 
 4. Abra **Advanced settings**: escolha Python 3.12 e, em **Secrets**, cole (com a sua chave):
    ```toml
    OLLAMA_API_KEY = "sua-chave-aqui"
-   OLLAMA_MODEL = "gpt-oss:120b"
+   OLLAMA_MODEL = "gpt-oss:20b"
    ```
 5. Clique em **Deploy** e aguarde a instalação (1 a 3 minutos).
 6. Teste numa **janela anônima** do navegador: o aviso verde "IA generativa ativa" deve aparecer na aba Assistente. Faça uma pergunta.
@@ -45,7 +45,7 @@ O Streamlit Community Cloud foi escolhido porque é gratuito, publica direto do 
 
 ### Trocar o modelo
 
-Os modelos disponíveis na conta podem ser listados em https://ollama.com/search?c=cloud. Para trocar, edite `OLLAMA_MODEL` no Secrets (ex.: `gpt-oss:20b`, mais leve). Se o modelo não existir, o app mostra "modelo não disponível" e responde no modo cálculo.
+Usamos `gpt-oss:20b`, um dos modelos de **baixo uso** indicados como ponto de partida do plano gratuito. No primeiro teste publicado (17/11/2026), `gpt-oss:120b` respondeu **HTTP 402** (a conta gratuita não tinha plano/créditos para ele) e o app caiu corretamente no modo cálculo; por isso o padrão passou a ser o 20b. Para trocar, edite `OLLAMA_MODEL` no Secrets (lista de modelos em https://ollama.com/search?c=cloud). Se o modelo não existir ou não estiver no plano, o app avisa e responde no modo cálculo.
 
 ## Como o app lida com falhas
 
@@ -53,6 +53,7 @@ Os modelos disponíveis na conta podem ser listados em https://ollama.com/search
 | --- | --- |
 | Sem chave configurada | Aviso azul "Modo cálculo" e respostas por regras (identificadas como "não é IA generativa") |
 | Chave inválida/revogada (401/403) | "A chave da IA foi recusada…" + resposta no modo cálculo |
+| Modelo fora do plano ou sem créditos (402) | "A conta do Ollama Cloud não tem plano ou créditos para o modelo…" + modo cálculo |
 | Modelo indisponível (404) | "O modelo … não está disponível…" + modo cálculo |
 | Limite de uso do Ollama (429) | "Limite de uso da IA atingido…" + modo cálculo |
 | Serviço fora do ar (5xx) ou demora > 45 s | Mensagem de instabilidade/tempo + modo cálculo |

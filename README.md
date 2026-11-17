@@ -4,7 +4,7 @@ Global Solution 2026.2 — **Soluções em Energias Renováveis e Sustentáveis 
 
 > Assistente que ajuda famílias da Grande São Paulo a reduzir o gasto com o **chuveiro elétrico**, comparando o uso atual, práticas de uso eficiente e **aquecimento solar térmico** com dados públicos, cálculos verificáveis e uma IA generativa que responde **apenas** com base nesses cálculos.
 
-- **App online:** _(link do Streamlit Community Cloud — preencher após a publicação)_
+- **App online:** https://citizen-assist-ai-sers-fwnb3a5vpzskwhxhttqnrm.streamlit.app/
 - **Vídeo (YouTube, não listado):** _(preencher)_
 
 ## Integrantes
@@ -63,7 +63,7 @@ cd citizen-assist-ai-sers
 python -m venv .venv
 # Windows: .venv\Scripts\activate    |    macOS/Linux: source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest                         # 50 testes automatizados
+pytest                         # 51 testes automatizados
 streamlit run app.py           # http://localhost:8501 (modo cálculo, sem chave)
 python scripts/gerar_resultados.py   # regenera docs/resultados.md e resultados/*.csv
 ```
@@ -93,7 +93,7 @@ Principais limitações: estimativas (não garantias); conta sem bandeiras e COS
 
 ## Testes
 
-- **Técnicos:** 50 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
+- **Técnicos:** 51 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, app sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
 - **Com usuários:** roteiro, registros e ajustes em [`docs/testes_usuarios/`](docs/testes_usuarios/).
 
 ## Estrutura

@@ -6,7 +6,7 @@ import assistente
 from assistente import ConfigIA, responder
 from assistente.contexto import montar_ficha
 from assistente.modo_calculo import detectar_intencao
-from assistente.ollama_cloud import ErroAutenticacao, ErroConexao, ErroLimite, ErroModelo, conversar
+from assistente.ollama_cloud import ErroAutenticacao, ErroConexao, ErroLimite, ErroModelo, ErroPlano, conversar
 from assistente.verificador import extrair_numeros, numeros_nao_conferidos
 from energia import BaseDados, Cenario, analisar, recomendacoes
 from energia.analise import sensibilidade_solar
@@ -63,7 +63,7 @@ class RespostaFalsa:
         return self._corpo
 
 
-@pytest.mark.parametrize("status, erro", [(401, ErroAutenticacao), (403, ErroAutenticacao), (404, ErroModelo), (429, ErroLimite)])
+@pytest.mark.parametrize("status, erro", [(401, ErroAutenticacao), (402, ErroPlano), (403, ErroAutenticacao), (404, ErroModelo), (429, ErroLimite)])
 def test_erros_http_viram_mensagens(monkeypatch, status, erro):
     monkeypatch.setattr(requests, "post", lambda *a, **k: RespostaFalsa(status))
     with pytest.raises(erro):

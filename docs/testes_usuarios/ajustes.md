@@ -14,3 +14,4 @@ Preencha uma linha por problema encontrado nos testes com usuários (ver `roteir
 | T2 | Revisão da análise | Resultado do solar dependia de premissas incertas | Criada a análise de sensibilidade com valores com fonte (coletor mínimo INMETRO, vazão do estudo da USP) |
 | T3 | Teste do assistente | Resposta sobre "inverno" citava o mês errado (índice do mês deslocado) | Corrigido o índice e trocada a base para o consumo da alternativa A |
 | T4 | Revisão de fontes | PMEe usado (90,8) diferia do datasheet (90,9) | Ajustado para o valor publicado pelo fabricante |
+| T5 | Teste do app publicado | Ollama Cloud respondeu HTTP 402 para `gpt-oss:120b` (fora do plano gratuito); a mensagem era genérica | Modelo padrão `gpt-oss:20b` (baixo uso) e mensagem específica para o erro 402 |

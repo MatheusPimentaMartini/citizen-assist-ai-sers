@@ -12,7 +12,7 @@ from typing import Mapping
 import requests
 
 HOST_PADRAO = "https://ollama.com"
-MODELO_PADRAO = "gpt-oss:120b"
+MODELO_PADRAO = "gpt-oss:20b"  # modelo de baixo uso, disponível no plano gratuito
 
 
 class ErroIA(Exception):
@@ -28,6 +28,10 @@ class ErroLimite(ErroIA):
 
 
 class ErroModelo(ErroIA):
+    pass
+
+
+class ErroPlano(ErroIA):
     pass
 
 
@@ -101,6 +105,11 @@ def conversar(config: ConfigIA, mensagens: list[dict], temperatura: float = 0.2)
 
     if r.status_code in (401, 403):
         raise ErroAutenticacao("A chave da IA foi recusada (inválida, revogada ou sem permissão).")
+    if r.status_code == 402:
+        raise ErroPlano(
+            f"A conta do Ollama Cloud não tem plano ou créditos para o modelo '{config.modelo}' (HTTP 402). "
+            "Use um modelo do plano gratuito, como gpt-oss:20b, ou adicione créditos."
+        )
     if r.status_code == 404:
         raise ErroModelo(f"O modelo '{config.modelo}' não está disponível no serviço de IA.")
     if r.status_code == 429:
