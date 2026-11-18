@@ -100,7 +100,7 @@ Principais limitações: estimativas (não garantias); conta sem bandeiras e COS
 ## Testes
 
 - **Técnicos:** 63 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, caminho completo na interface sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
-- **Com usuários:** roteiro em [`docs/testes_usuarios/roteiro.md`](docs/testes_usuarios/roteiro.md). Os registros (`registros.csv`) e os ajustes (`ajustes.md`) são preenchidos à medida que os testes acontecem; até 17/11/2026 nenhum teste com usuários havia sido registrado.
+- **Com usuários:** 5 participantes em 17/11/2026, sem dados pessoais (códigos P1 a P5), seguindo o [roteiro](docs/testes_usuarios/roteiro.md). Tarefas feitas sem ajuda: entender para quem é o app, 4 de 5; calcular o consumo, achar a melhor opção e a opção sem custo, usar o assistente e achar as fontes, 3 de 5 cada. Notas médias (1 a 5): clareza 4,2 · utilidade 4,4 · confiança 4,0 · facilidade 3,8. Os problemas viraram os ajustes U1 a U5 (formulário, custo nos cartões, respostas do assistente, caminho para as fontes e apresentação). Resumo: [`resultados.md`](docs/testes_usuarios/resultados.md) · registros: [`registros.csv`](docs/testes_usuarios/registros.csv) · ajustes: [`ajustes.md`](docs/testes_usuarios/ajustes.md).
 
 ## Estrutura
 

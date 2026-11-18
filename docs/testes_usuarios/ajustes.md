@@ -4,7 +4,12 @@ Preencha uma linha por problema encontrado nos testes com usuários (ver `roteir
 
 | # | Participante(s) | Problema observado | Ajuste feito | Arquivo/commit | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1 |  |  |  |  |  |
+| U1 | P2, P4 (tarefa 2) | Dificuldade para entender uma das informações pedidas no formulário; precisaram de orientação. Os dois comentaram que algumas informações poderiam ser mais explicadas | Aviso no topo do formulário ("Não sabe alguma resposta? Deixe o valor que já aparece...") e explicações mais claras da potência do chuveiro e do consumo em kWh | `app.py` (formulário) | Feito. O registro não diz qual informação confundiu, então o ajuste vale para o formulário todo |
+| U2 | P2, P5 (tarefa 3) | Não perceberam de imediato qual opção não custa nada | "Custo para começar" virou a primeira informação de cada cartão; frase em destaque acima dos cartões ("A (mudar hábitos) não custa nada. B (aquecedor solar) custa R$ 3.359,57 para instalar."); selo "Grátis para começar" | `app.py` (cartões) | Feito |
+| U3 | P2, P3 (tarefa 4) | Dificuldade para interpretar a resposta do assistente e dizer que era estimativa; uma pessoa não fez a segunda pergunta | Regras da IA: começar com uma frase curta que responde direto, palavras simples, siglas explicadas, no máximo 120 palavras (antes, 170); "Os valores são estimativas, não garantias" embaixo de toda resposta; dica de como fazer outra pergunta | `assistente/__init__.py`, `app.py` | Feito |
+| U4 | P2, P4 (tarefa 5 e comentários) | Uma pessoa não encontrou a seção Fontes sem ajuda; outra encontrou, mas não apontou uma fonte específica | Botão "De onde vêm esses números?" logo abaixo do gráfico do resultado; a seção Fontes começa com a tabela "Principais fontes" (o que foi calculado × instituição, em negrito) | `app.py` | Feito |
+| U5 | P3 (tarefa 1) | Não ligou de imediato o app ao banho e ao chuveiro elétrico | A apresentação começa dizendo para quem é: famílias que moram em casa e tomam banho com chuveiro elétrico | `app.py` (apresentação) | Feito |
+| N1 | P3 (comentário) | Sugeriu mostrar outras formas de economizar energia além do chuveiro | Não incorporado: o escopo da análise é o banho. Fica como ideia para uma versão futura | — | Não incorporado |
 
 ## Ajustes anteriores, vindos de testes técnicos da equipe (não são testes com usuários)
 

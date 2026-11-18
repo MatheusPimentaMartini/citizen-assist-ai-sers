@@ -73,6 +73,6 @@ Contrastes calculados com a fórmula de luminância relativa da WCAG 2.1.
 
 ## 8. O que ainda falta
 
-- Testes com pessoas de fora da equipe (`docs/testes_usuarios/roteiro.md`). As escolhas acima vêm de uma revisão de usabilidade, **não** de testes com usuários; os testes vão mostrar o que ainda confunde.
+- Os testes com 5 pessoas (17/11/2026, `docs/testes_usuarios/resultados.md`) geraram os ajustes U1 a U5, já aplicados: aviso "Não sabe alguma resposta?" no formulário, custo como primeira informação dos cartões, respostas do assistente mais curtas e simples, botão "De onde vêm esses números?" e tabela "Principais fontes". Esses ajustes ainda não foram testados de novo com participantes.
 - Repetir o checklist manual da equipe no celular de cada integrante com a interface nova.
 - A página continua marcada como inglês para leitores de tela (`<html lang="en">`, padrão do Streamlit); não encontramos opção de configuração para mudar isso.

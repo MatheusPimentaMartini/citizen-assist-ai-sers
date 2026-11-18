@@ -44,7 +44,9 @@ def test_calcular_mostra_cartoes_e_selos_conferidos(monkeypatch):
     rotulos = [m.label for m in at.metric]
     assert rotulos == ["Conta de energia por mês", "Você economiza por mês", "Você economiza por mês"]
     textos = _textos(at)
-    assert "Sem custo inicial" in textos and "Maior economia" in textos
+    assert "Grátis para começar" in textos and "Maior economia" in textos
+    assert "A (mudar hábitos) não custa nada." in textos and "Custo para começar: R$ 0" in textos
+    assert at.button(key="ir_fontes_grafico").label == "De onde vêm esses números?"
     assert "cenário pessimista" in " ".join(c.value for c in at.caption)
     assert any(s.value == "2. O resultado da sua casa" for s in at.subheader)
 

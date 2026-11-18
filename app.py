@@ -219,6 +219,8 @@ def grafico_contas(alts: dict) -> alt.Chart:
 def formulario(casa: dict) -> None:
     st.subheader("1. Conte sobre a sua casa", anchor="casa")
     with st.form("form_casa"):
+        st.info("**Não sabe alguma resposta?** Deixe o valor que já aparece: é o exemplo usado no estudo. "
+                "Depois você pode mudar e calcular de novo.", icon=":material/help:")
         st.number_input("Quantas pessoas tomam banho na sua casa por dia?", 1, 10, casa["pessoas"], 1, key="f_pessoas")
         st.caption("O cálculo considera um banho por pessoa por dia. Se alguém toma dois banhos, conte essa pessoa duas vezes.")
 
@@ -226,11 +228,12 @@ def formulario(casa: dict) -> None:
         st.caption("Exemplo: 8 minutos. Se não souber, cronometre um banho.")
 
         st.number_input("Qual é a potência do chuveiro, em watts (W)?", 2000, 9000, casa["potencia"], 100, key="f_potencia")
-        st.caption("Use a potência maior (posição inverno). Ela aparece na etiqueta, na caixa ou no manual, "
+        st.caption("É a força do chuveiro. Use o valor maior (posição inverno), que aparece na etiqueta, na caixa ou no manual, "
                    "por exemplo 5.500 W ou 7.500 W. Se não souber, deixe 5.500 W, o valor de referência do estudo.")
 
         st.number_input("Quanto de energia a casa gasta por mês, em kWh?", 30, 1000, casa["consumo"], 10, key="f_consumo")
-        st.caption("Está na conta de luz, no campo de consumo em kWh. Se puder, use a média dos últimos meses.")
+        st.caption("É o consumo da casa no mês, o número que aparece na conta de luz junto de \"kWh\" (por exemplo, 200 kWh). "
+                   "Se puder, use a média dos últimos meses. Se não souber, deixe 200.")
 
         st.radio(
             "A sua conta de luz tem desconto social?", list(PERFIS), index=list(PERFIS).index(casa["perfil"]),
@@ -272,6 +275,10 @@ def cartao_alternativa(chave: str, alt_: dict, L0: dict, selos: list[str], descr
         if selos:
             st.markdown(" ".join(selos))
         st.caption(descricao)
+        if alt_["investimento_rs"] > 0:
+            st.markdown(f"**Custo para começar: {rs(alt_['investimento_rs'])}** (aparelho instalado)")
+        else:
+            st.markdown("**Custo para começar: R$ 0** (não precisa comprar nada)")
         if alt_["economia_ano_rs"] > 0:
             st.metric("Você economiza por mês", rs(alt_["economia_mes_medio_rs"]))
             st.caption(f"{rs(alt_['economia_ano_rs'])} por ano")
@@ -279,12 +286,11 @@ def cartao_alternativa(chave: str, alt_: dict, L0: dict, selos: list[str], descr
             st.metric("Você economiza por mês", "R$ 0,00")
             st.caption("Com estes dados não há economia na conta.")
         if alt_["investimento_rs"] > 0:
-            custo = f"**{rs(alt_['investimento_rs'])}**"
             retorno = (f"cerca de **{num(alt_['retorno_simples_anos'], 1)} anos**" if alt_["retorno_simples_anos"]
                        else "**não se paga** com estes dados")
-            linhas = [f"Custo para começar: {custo}", f"Se paga em: {retorno}"]
+            linhas = [f"Se paga em: {retorno}"]
         else:
-            linhas = ["Custo para começar: **R$ 0**"]
+            linhas = []
         menos_agua = L0["agua_m3_ano"] - alt_["agua_m3_ano"]
         agua = (f"**{num(alt_['agua_m3_ano'], 1)} mil litros/ano** ({num(menos_agua, 1)} mil a menos)" if menos_agua > 0.05
                 else f"**{num(alt_['agua_m3_ano'], 1)} mil litros/ano** (igual a hoje)")
@@ -326,8 +332,16 @@ def resultado(res, sens, recs, casa: dict, recem_calculado: bool) -> None:
     st.altair_chart(grafico_contas(res.alternativas), width="stretch")
     st.caption("Estimativa com a tarifa da Enel SP 2026, ICMS e PIS/COFINS. Não inclui bandeira tarifária nem "
                "iluminação pública, por isso pode ficar abaixo do total da sua conta.")
+    st.button("De onde vêm esses números?", icon=":material/menu_book:", type="tertiary", on_click=ir_para,
+              args=("fontes",), key="ir_fontes_grafico")
 
     st.markdown("#### Compare as opções")
+    custo_a, custo_b = A["investimento_rs"], B["investimento_rs"]
+    st.markdown(
+        ("**A (mudar hábitos) não custa nada.** " if custo_a == 0 else f"**A (mudar hábitos) custa {rs(custo_a)}.** ")
+        + (f"**B (aquecedor solar) custa {rs(custo_b)} para instalar.**" if custo_b > 0
+           else "**B (aquecedor solar) não custa nada com estes dados.**")
+    )
     economias = {k: res.alternativas[k]["economia_ano_rs"] for k in ("A", "B")}
     maior = max(economias, key=economias.get)
     selos = {}
@@ -335,7 +349,7 @@ def resultado(res, sens, recs, casa: dict, recem_calculado: bool) -> None:
         alt_ = res.alternativas[k]
         s = []
         if alt_["investimento_rs"] == 0 and alt_["economia_ano_rs"] > 0:
-            s.append(":green-badge[:material/check_circle: Sem custo inicial]")
+            s.append(":green-badge[:material/check_circle: Grátis para começar]")
         if k == maior and economias[k] > 0:
             s.append(":orange-badge[:material/star: Maior economia]")
         selos[k] = s
@@ -421,13 +435,13 @@ def resultado(res, sens, recs, casa: dict, recem_calculado: bool) -> None:
 def secao_simular(res, sens, recs, recem_calculado: bool) -> None:
     with st.container(border=True, key="hero"):
         st.markdown("### Quanto o banho pesa na sua conta de luz?")
+        st.markdown("Para famílias que moram em casa na Grande São Paulo e tomam banho com **chuveiro elétrico**.")
         st.markdown(
             "Responda **5 perguntas rápidas** e veja, para a sua casa:\n"
             "- quanto o chuveiro elétrico gasta hoje;\n"
             "- quanto você economiza **mudando hábitos**, sem gastar nada;\n"
             "- quanto economiza com **aquecedor solar** e em quanto tempo ele se paga."
         )
-        st.caption("Para famílias que moram em casa na Grande São Paulo e usam chuveiro elétrico.")
     formulario(ss.casa)
     if not ss.calculado:
         st.info("Responda as perguntas e toque em **Calcular minha economia** para ver o resultado da sua casa.",
@@ -449,7 +463,7 @@ def mostrar_resposta(m: dict) -> None:
         return
     if m.get("rotulo"):
         st.caption(m["rotulo"])
-    st.caption(FONTES_RESUMO)
+    st.caption("Os valores são estimativas, não garantias. " + FONTES_RESUMO)
     if m.get("nao_conferidos"):
         st.warning("**Atenção:** a resposta citou números que não aparecem nos cálculos ("
                    + ", ".join(m["nao_conferidos"]) + "). Confira os valores na seção Simular.",
@@ -544,6 +558,7 @@ def secao_assistente(res, sens, recs, perfis) -> None:
     if not ss.mensagens:
         st.pills("Perguntas sugeridas", SUGESTOES, key="sugestao", on_change=escolher_sugestao)
     else:
+        st.caption("Quer perguntar mais? Escreva no campo do fim da tela ou abra as perguntas sugeridas.")
         with st.expander("Ver perguntas sugeridas", icon=":material/lightbulb:"):
             st.pills("Perguntas sugeridas", SUGESTOES, key="sugestao", on_change=escolher_sugestao,
                      label_visibility="collapsed")
@@ -560,7 +575,17 @@ def secao_fontes(res, casa: dict) -> None:
         "Todos os números do app são **calculados pelo código** a partir de dados públicos. A IA generativa não "
         "cria valores: ela só explica os resultados, e o app confere os números de cada resposta."
     )
-    st.markdown("#### Fontes")
+    st.markdown("#### Principais fontes")
+    st.markdown(
+        "| O que foi calculado | Fonte |\n| --- | --- |\n"
+        "| Tarifa de energia | **ANEEL** (tarifa da Enel SP de 2026) |\n"
+        "| Sol e clima de São Paulo | **Open-Meteo** e **CRESESB** |\n"
+        "| Consumo e eficiência do chuveiro | **INMETRO** e **Idec** |\n"
+        "| Custo do aquecedor solar | **SINAPI** (item 103517) |\n"
+        "| Emissões de CO₂ | **MCTI** |\n"
+        "| Tempo de banho recomendado | **Sabesp** |"
+    )
+    st.markdown("**Detalhes de cada fonte**")
     st.markdown("\n".join(f"- {f_}" for f_ in FONTES_CURTAS))
     st.markdown(f":material/open_in_new: [Ver a lista completa de referências, com links]({REPO}/blob/main/docs/referencias.md)")
 
