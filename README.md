@@ -55,7 +55,7 @@ Família de 4 pessoas, banho de 8 min, chuveiro de 5.500 W, conta de 200 kWh/mê
 - **Tarifa Social:** com 150 kWh/mês, a economia do solar cai para R$ 632,73/ano (retorno 5,3 anos), porque os primeiros 80 kWh já são gratuitos.
 - **CO₂:** as emissões evitadas são pequenas porque a eletricidade do SIN é majoritariamente renovável (fator médio de 2025: 0,0461 t/MWh); o ganho principal é econômico e na redução de demanda.
 
-**Recomendação:** comece por A (custo zero, ≈47% a menos no chuveiro e ≈14 mil litros de água a menos por ano). Se houver telhado adequado e recursos, B reduz quase todo o consumo do chuveiro e se paga em 3 a 5 anos; mantenha os hábitos de A junto com o solar para evitar o efeito rebote.
+**Recomendação:** comece por A (custo zero, ≈47% a menos no chuveiro e ≈14 mil litros de água a menos por ano). Se houver telhado adequado e recursos, B economiza de R$ 714,93 a R$ 1.119,89 por ano (do cenário pessimista ao de referência) e se paga em 3,0 a 4,7 anos; mantenha os hábitos de A junto com o solar para evitar o efeito rebote.
 
 ## Como usar e testar
 
@@ -69,7 +69,7 @@ cd citizen-assist-ai-sers
 python -m venv .venv
 # Windows: .venv\Scripts\activate    |    macOS/Linux: source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest                         # 62 testes automatizados
+pytest                         # 63 testes automatizados
 streamlit run app.py           # http://localhost:8501 (modo cálculo, sem chave)
 python scripts/gerar_resultados.py   # regenera docs/resultados.md e resultados/*.csv
 ```
@@ -93,14 +93,14 @@ Cada parâmetro em `parametros.json` tem tipo (**oficial**, **literatura**, **es
 
 ## Metodologia, justificativas e limitações
 
-Resumo: simulação **diária** de 2016 a 2025 das três alternativas para a mesma necessidade; energia elétrica = potência × tempo; necessidade térmica = vazão × tempo × c × ΔT; coletor solar pelo ensaio INMETRO (PMEe) escalado pela irradiação do dia no plano inclinado; perdas de 15% (NBR 15569) e perda do reservatório no limite do INMETRO; conta mês a mês com tarifa ANEEL + PIS/COFINS + ICMS-SP por faixa. Detalhes, equações, validação e as 9 limitações: [`docs/metodologia.md`](docs/metodologia.md). Referências com links: [`docs/referencias.md`](docs/referencias.md).
+Resumo: simulação **diária** de 2016 a 2025 das três alternativas para a mesma necessidade; energia elétrica = potência × tempo; necessidade térmica = vazão × tempo × c × ΔT; coletor solar pelo ensaio INMETRO (PMEe) escalado pela irradiação do dia no plano inclinado; perdas de 15% (NBR 15569) e perda do reservatório no limite do INMETRO; conta mês a mês com tarifa ANEEL + PIS/COFINS + ICMS-SP por faixa. Detalhes, equações, validação, vantagens e desvantagens de cada alternativa e as 10 limitações: [`docs/metodologia.md`](docs/metodologia.md). Referências com links: [`docs/referencias.md`](docs/referencias.md).
 
 Principais limitações: estimativas (não garantias); conta sem bandeiras e COSIP; água fria aproximada pela temperatura do ar; coletor modelado pelo ensaio padrão; investimento SINAPI sem conexões/válvulas; retorno sem juros.
 
 ## Testes
 
-- **Técnicos:** 62 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, caminho completo na interface sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
-- **Com usuários:** roteiro, registros e ajustes em [`docs/testes_usuarios/`](docs/testes_usuarios/).
+- **Técnicos:** 63 testes automatizados (contas à mão, faixas tarifárias, reservatório, falhas da IA, caminho completo na interface sem chave). Ver [`docs/testes_tecnicos.md`](docs/testes_tecnicos.md).
+- **Com usuários:** roteiro em [`docs/testes_usuarios/roteiro.md`](docs/testes_usuarios/roteiro.md). Os registros (`registros.csv`) e os ajustes (`ajustes.md`) são preenchidos à medida que os testes acontecem; até 17/11/2026 nenhum teste com usuários havia sido registrado.
 
 ## Estrutura
 

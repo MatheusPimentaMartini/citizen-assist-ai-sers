@@ -19,6 +19,18 @@ Este documento explica **o que** foi calculado, **como** e **por quê**. Todos o
 
 As três alternativas são calculadas **dia a dia de 01/01/2016 a 31/12/2025** (3.653 dias) com os mesmos dados de clima e depois resumidas em um **ano típico** (média de cada mês entre os 10 anos). Isso atende ao requisito de comparar no mesmo período e para a mesma necessidade.
 
+**Por que A atende à mesma necessidade:** a necessidade é um banho por pessoa por dia, com a água a 40 °C. A continua entregando esse banho, só que em 5 minutos (recomendação da Sabesp). A água quente que deixa de ser usada (≈ 13,7 m³/ano no cenário de referência) é um benefício de A, e não uma parte da necessidade que ficou sem atender. B entrega o mesmo volume de água quente que L0.
+
+### 2.1 Vantagens e desvantagens
+
+Valores do cenário de referência (`docs/resultados.md`); o solar aparece com a faixa do cenário pessimista ao de referência.
+
+| Alternativa | Vantagens | Desvantagens |
+| --- | --- | --- |
+| L0 · chuveiro como hoje | Nenhum investimento; aparelho simples e barato | Maior conta (R$ 199,07/mês); o chuveiro é cerca de 45% da energia da casa; alta potência (5.500 W) enquanto ligado |
+| A · práticas de uso eficiente | Custo zero e economia imediata (R$ 574,84/ano); ≈ 13,7 m³ de água a menos por ano; menos CO₂ | Depende de manter o hábito; banho mais curto; o ajuste fino da potência supõe chuveiro com controle de temperatura (limitação 6) |
+| B · aquecimento solar + complemento | Maior economia (R$ 714,93 a R$ 1.119,89/ano); usa fonte renovável; o sol cobre de 59,3% (pessimista) a 99,9% (referência) da energia do banho | Investimento ≈ R$ 3,4 mil sem conexões; exige telhado com sol, estrutura e instalação conforme a NBR 15569; depende do clima (o chuveiro completa em dias nublados); manutenção fora da conta; risco de efeito rebote na água; impacto de fabricação não quantificado |
+
 ## 3. Equações
 
 Notação: P = potência do chuveiro (W), η = eficiência do chuveiro (0,95), t = minutos de banho por dia (pessoas × minutos), c = 4,186 kJ/(kg·K), 1 L de água ≈ 1 kg, T_b = 40 °C, T_f = temperatura da água fria.

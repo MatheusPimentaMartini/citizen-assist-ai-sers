@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from energia.analise import MESES_NOME, Resultado
-from energia.formatacao import num, pct, reais
+from energia.formatacao import num, pct, pct_sem_100, reais
 
 FONTES_RESUMO = (
     "Fontes dos cálculos: ANEEL (tarifa Enel SP 2026) · Open-Meteo e CRESESB (clima e sol) · "
@@ -57,7 +57,7 @@ def montar_ficha(res: Resultado, sensibilidade: list[dict], recs: list[str], per
             f"### {chave} · {alt['nome']}",
             f"- consumo do chuveiro: {num(alt['chuveiro_kwh_ano'])} kWh/ano ({num(alt['chuveiro_kwh_mes_medio'], 1)} kWh/mês)",
             f"- conta de energia da casa: {reais(alt['conta_energia_mes_medio_rs'])}/mês",
-            f"- energia economizada em relação a L0: {num(alt['economia_kwh_ano'])} kWh/ano ({pct(alt['reducao_consumo_chuveiro'])} do consumo do chuveiro)",
+            f"- energia economizada em relação a L0: {num(alt['economia_kwh_ano'])} kWh/ano ({pct_sem_100(alt['reducao_consumo_chuveiro'])} do consumo do chuveiro)",
             f"- economia na conta em relação a L0: {reais(alt['economia_ano_rs'])}/ano ({reais(alt['economia_mes_medio_rs'])}/mês)",
             f"- investimento: {reais(alt['investimento_rs'])}; retorno: {retorno}",
             f"- CO2 do chuveiro: {num(alt['co2_kg_ano'], 1)} kg/ano; água do banho: {num(alt['agua_m3_ano'], 1)} m³/ano",

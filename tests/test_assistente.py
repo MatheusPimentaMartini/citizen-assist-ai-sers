@@ -1,4 +1,6 @@
 """Assistente: modo cálculo, verificador de números e falhas da IA (sem chamar a internet)."""
+import re
+
 import pytest
 import requests
 
@@ -148,3 +150,15 @@ def test_ficha_traz_numeros_da_tarifa_social(caso):
     assert social["economia_b_ano_rs"] < [p for p in perfis if p["perfil"] == "convencional"][0]["economia_b_ano_rs"]
     r = responder("e a tarifa social?", res, sens, recs, ConfigIA(api_key=None), perfis=perfis)
     assert r.modo == "calculo" and numeros_nao_conferidos(r.texto, ficha) == []
+
+
+def test_ficha_e_regras_coerentes_com_os_cartoes_e_a_interface(caso):
+    res, sens, recs = caso
+    ficha = montar_ficha(res, sens, recs)
+    # B cobre 99,9% no cenário de referência: a ficha não pode dizer "100%" para a energia economizada
+    linha_b = [l for l in ficha.splitlines() if "energia economizada em relação a L0" in l][-1]
+    assert "99,9% do consumo do chuveiro" in linha_b
+    # as regras pedem números sem arredondar e apontam para a seção que existe hoje no app
+    assert "sem arredondar" in assistente.INSTRUCOES
+    assert 'seção "Simular"' in assistente.INSTRUCOES
+    assert not re.search(r"\baba\b", assistente.INSTRUCOES)  # o app não tem mais abas

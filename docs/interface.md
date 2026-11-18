@@ -67,7 +67,7 @@ Contrastes calculados com a fórmula de luminância relativa da WCAG 2.1.
 
 ## 7. Como foi verificado
 
-- `pytest`: 62 testes. Os 7 de `tests/test_app.py` fazem o caminho da pessoa sem navegador: abrir, calcular, mudar a potência, ver que as respostas continuam guardadas ao trocar de seção, pedir banho "eficiente" mais longo que o de hoje, perguntar digitando e tocando numa sugestão, limpar a conversa e abrir as fontes.
+- `pytest`: 63 testes. Os 7 de `tests/test_app.py` fazem o caminho da pessoa sem navegador: abrir, calcular, mudar a potência, ver que as respostas continuam guardadas ao trocar de seção, pedir banho "eficiente" mais longo que o de hoje, perguntar digitando e tocando numa sugestão, limpar a conversa e abrir as fontes.
 - App publicado conferido em tela de celular e de computador, com uma pergunta respondida pela IA generativa (registro em `docs/testes_tecnicos.md`).
 - `scripts/capturar_telas.py` com Chrome sem janela, em 390 × 844 (celular) e 1280 × 900 (computador): sem rolagem horizontal, nenhum botão abaixo de 44 px e nenhum erro de JavaScript. As imagens desta página saíram desse script (app local, sem chave, por isso aparece o modo cálculo).
 

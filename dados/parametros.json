@@ -170,10 +170,12 @@
   "sensibilidade": {
     "pmee_minimo_kwh_mes_m2": {
       "valor": 52.3,
+      "tipo": "oficial",
       "fonte": "INMETRO, Portaria 301/2012: limite inferior da classe E."
     },
     "fator_uso_agua_quente": {
       "valor": 2.0,
+      "tipo": "literatura",
       "fonte": "Estudo da USP (citado pela ABINEE e pelo Idec): chuveiro elétrico 4,2 L/min x aquecedor solar 8,4 L/min."
     }
   }
